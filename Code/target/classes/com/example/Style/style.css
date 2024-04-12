@@ -1,0 +1,29 @@
+AnchorPane{
+    -fx-background-color:#30332E;
+}
+
+Button{
+    
+    -fx-background-color: #B100FF;
+}
+
+TextField{
+    -fx-background-color:#010400;
+}
+
+BorderPane{
+    -fx-background-color:#30332E;
+    
+}
+
+GridPane{
+    -fx-background-color:#010400;
+}
+
+*{
+    -fx-text-fill: #FFFBFC;
+}
+
+ChoiceBox{
+    -fx-background-color: #A67DB8;
+}
