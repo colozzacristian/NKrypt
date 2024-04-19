@@ -27,7 +27,6 @@ GridPane{
 ChoiceBox{
     -fx-background-color: #A67DB8;
 }
-
 TableView{
     -fx-background-color:#010400;
 }
