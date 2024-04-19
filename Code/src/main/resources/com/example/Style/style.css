@@ -27,3 +27,14 @@ GridPane{
 ChoiceBox{
     -fx-background-color: #A67DB8;
 }
+
+TableView{
+    -fx-background-color:#010400;
+}
+
+.TableColumn{
+    -fx-background-color: #B100FF;
+    -fx-border-color:#30332E;
+    -fx-border-top: 0px;
+    -fx-border-bottom: 0px;
+}

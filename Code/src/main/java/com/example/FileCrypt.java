@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package esempio4ATable.model;
+package com.example;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,7 +24,7 @@ import javax.crypto.spec.SecretKeySpec;
  *
  * @author User
  */
-public class Cryption {
+public class FileCrypt {
     private static final String SYM_ALGORITHM 	= "AES";
     private static final Integer SYM_KEY_SIZE 	= 128;
     
@@ -33,7 +33,7 @@ public class Cryption {
     private File file;
     private byte [] byte_file;
 
-    public Cryption(String chiave, String nome_file) {
+    public FileCrypt(String chiave, String nome_file) {
         filepath="cartella/nome_file";
         this.file = new File (filepath);
         key = new SecretKeySpec(chiave.getBytes(), SYM_ALGORITHM);
