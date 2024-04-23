@@ -1,4 +1,4 @@
-package main.java.com.example;
+package com.example;
 
 public class Crypto {
     private String name;

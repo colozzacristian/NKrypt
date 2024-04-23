@@ -16,6 +16,18 @@ BorderPane{
     
 }
 
+PasswordField{
+    -fx-background-color:#A67DB8;
+    
+}
+
+
+
+.choice-box .context-menu { -fx-background-color: black; }
+
+
+.choice-box .menu-item:focused { -fx-background-color: #B100FF; }
+
 GridPane{
     -fx-background-color:#010400;
 }

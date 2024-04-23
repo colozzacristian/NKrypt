@@ -4,27 +4,44 @@ import java.io.File;
 import java.io.IOException;
 
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.PasswordField;
+import javafx.scene.image.ImageView;
+import javafx.scene.shape.CubicCurve;
 
 public class LoginController {
 
     @FXML ChoiceBox choiceFile;
 
-    @FXML Button btnNewFile;
+
+    @FXML Button btnNewLogin;
+    @FXML ImageView btnDelete;
+    @FXML Button btnLoginFile1;
+    @FXML ImageView btnPrev;
+    @FXML ImageView btnEnter;
+    @FXML PasswordField passwdFile;
+
+
+
+
+
+
 
     @FXML
     private void initialize(){
         this.testFile();
-        File folder = new File("./");
-        File[] listOfFiles = folder.listFiles();
+       
 
-        for (File file : listOfFiles) {
-        if (file.getName().contains(".ncrypt")) {
-            choiceFile.getItems().add(file.getName());
-            }
-        }
+        choiceFile.setVisible(false);
+        btnDelete.setVisible(false);
+        btnPrev.setVisible(false);
+        btnEnter.setVisible(false);
+        passwdFile.setVisible(false);
+
     }
 
     public void testFile() {
@@ -40,4 +57,48 @@ public class LoginController {
           e.printStackTrace();
         }
       }
+
+  @FXML
+  public void loginFromFile(){
+
+    File folder = new File("./");
+    File[] listOfFiles = folder.listFiles();
+
+    for (File file : listOfFiles) {
+    if (file.getName().contains(".ncrypt")) {
+        choiceFile.getItems().add(file.getName());
+        }
+    }
+
+    choiceFile.setVisible(true);
+    btnDelete.setVisible(true);
+    btnPrev.setVisible(true);
+    btnEnter.setVisible(true);
+    passwdFile.setVisible(true);
+
+
+    btnLoginFile1.setVisible(false);
+    btnNewLogin.setVisible(false);
+
+
+  }
+
+  @FXML
+  public void toMainMenu(){
+
+    choiceFile.setVisible(false);
+    btnDelete.setVisible(false);
+    btnPrev.setVisible(false);
+    btnEnter.setVisible(false);
+    passwdFile.setVisible(false);
+
+
+    btnLoginFile1.setVisible(true);
+    btnNewLogin.setVisible(true);
+
+
+  }
+
+
 }
+
