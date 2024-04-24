@@ -3,6 +3,7 @@ package com.example;
 import java.io.File;
 import java.io.IOException;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
@@ -14,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.CubicCurve;
 
 public class LoginController {
+
 
     @FXML ChoiceBox choiceFile;
 
@@ -60,6 +62,13 @@ public class LoginController {
 
   @FXML
   public void loginFromFile(){
+
+    int i=0;
+   
+    while(i<choiceFile.getItems().size()){
+      choiceFile.getItems().remove(i);
+      System.out.println("removed object");
+    }
 
     File folder = new File("./");
     File[] listOfFiles = folder.listFiles();
