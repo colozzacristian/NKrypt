@@ -27,6 +27,7 @@ public class LoginController {
     @FXML ImageView btnEnter;
     @FXML PasswordField passwdFile;
 
+    private FileCrypt filecrypt;
 
 
 
@@ -90,6 +91,19 @@ public class LoginController {
     btnNewLogin.setVisible(false);
 
 
+  }
+
+
+
+
+  @FXML
+  public void loginFile() {
+    if (choiceFile.getValue() == null) {
+      //chiamare alert
+    }
+    else {
+      this.filecrypt = new FileCrypt(passwdFile.getText(), (String)choiceFile.getValue());
+    }
   }
 
   @FXML
