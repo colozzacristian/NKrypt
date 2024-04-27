@@ -61,6 +61,8 @@ public class App extends Application {
 
     private void closeWindowEvent(WindowEvent event) {
         
+        LoginController logincontroller = new LoginController();
+        //logincontroller.get
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.getButtonTypes().remove(ButtonType.OK);
         alert.getButtonTypes().add(ButtonType.CANCEL);
@@ -72,6 +74,7 @@ public class App extends Application {
 
         if(res.isPresent()) {
             if(res.get().equals(ButtonType.CANCEL))
+                //chiamata della criptazione del file
                 //metodo che interrompe la chiusura della finestra
                 event.consume();
         }
