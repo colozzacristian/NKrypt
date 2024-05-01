@@ -223,6 +223,7 @@ public class LoginController {
 
   }
 
+<<<<<<< HEAD
   public void wrong_passwd() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Login");
@@ -230,6 +231,13 @@ public class LoginController {
         Optional<ButtonType> res = alert.showAndWait();
     }
 
+=======
+  public boolean isN() {
+    return n;
+  }
+
+  
+>>>>>>> a12d4af (Base for the live value feature)
 
 }
 

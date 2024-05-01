@@ -14,11 +14,6 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-
 import javafx.event.EventType;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -36,6 +31,9 @@ public class App extends Application {
     private MainUiController mainController;
     private LoginController loginController;
     private FileCrypt fileCrypt;
+    private Caller caller = new Caller(null);
+    private CallerCaller cc= new CallerCaller(null);
+    private CryptoList cl;
     
 
     @Override
@@ -92,6 +90,7 @@ public class App extends Application {
                 }
                 event.consume(); //metodo che interrompe la chiusura della finestra
         }
+        caller.interrupt();
    
     }
 
@@ -109,10 +108,23 @@ public class App extends Application {
             
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
-
+            
 
             mainController=loader.getController();
+            if(loginController.isN()){
+                cl=new CryptoList();
+            }else{
+                //leggi da file
+            }
+            caller.start();
+            caller.setCryptoList(cl);
+            cc.start();
+            cc.setCryptoList(cl);
+            
+            mainController.setCryptolist(cl);
+            mainController.setMainModel();
             primaryStage.show();
+        
             //L'operatore :: si può utilizzare per fare chiamate di metodi di oggetti (si utilizza 
             //primaryStage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::closeWindowEvent);
         } catch (IOException e) {

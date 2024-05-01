@@ -5,6 +5,8 @@
  */
 package com.example;
 
+import java.util.concurrent.Semaphore;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -13,6 +15,8 @@ import javafx.collections.ObservableList;
  * @author giuseppe.depietro
  */
 public class CryptoList {
+
+    private Semaphore call2Action = new Semaphore(1);
     private ObservableList<Crypto> cryptos = FXCollections.observableArrayList(); 
 
     public CryptoList() {
@@ -23,6 +27,15 @@ public class CryptoList {
      public ObservableList<Crypto> getCryptoList() {
          return cryptos;
     }
+
+    public Semaphore getCall2Action() {
+        return call2Action;
+    }
+
+    public void setCall2Action(Semaphore call2Action) {
+        this.call2Action = call2Action;
+    }
+    
     
     
     

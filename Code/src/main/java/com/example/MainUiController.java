@@ -6,6 +6,8 @@
 package com.example;
 
 
+import com.example.Threads.Caller;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -46,19 +48,15 @@ public class MainUiController {
     @FXML
     private TableColumn<Crypto, String> columnTotalValue;
     //__
-    private CryptoList cryptolist = new CryptoList();
+    private CryptoList cryptolist;
+    Caller caller;
 
     
     @FXML
     private void initialize() {
-        System.out.println(cryptolist.getCryptoList().get(0).getName());
-        setMainModel();
-        columnName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
-        columnPrice.setCellValueFactory(cellData -> cellData.getValue().getPriceProperty());
-        columnQuantity.setCellValueFactory(cellData -> cellData.getValue().getQuantityProperty());
-        columnTotalValue.setCellValueFactory(cellData -> cellData.getValue().getAssetValue());
         //tabellaPersone.getSelectionModel().selectedItemProperty().addListener((observable,oldValue, newValue)-> mostraDettagliPersona(newValue));
     }
+
 
     @FXML
     public void ciao(){
@@ -67,7 +65,23 @@ public class MainUiController {
 
     void setMainModel() {
         TableviewCrypto.setItems(cryptolist.getCryptoList());
+        columnName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
+        columnPrice.setCellValueFactory(cellData -> cellData.getValue().getPriceProperty());
+        columnQuantity.setCellValueFactory(cellData -> cellData.getValue().getQuantityProperty());
+        columnTotalValue.setCellValueFactory(cellData -> cellData.getValue().getAssetValue());
     }
+
+    public CryptoList getCryptolist() {
+        return cryptolist;
+    }
+
+    public void setCryptolist(CryptoList cryptolist) {
+        this.cryptolist = cryptolist;
+    }
+
+    
+
+    
     
     /*  private void mostraDettagliPersona(Persona p) {
         if (p!=null){
