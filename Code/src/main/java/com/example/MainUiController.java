@@ -46,27 +46,22 @@ public class MainUiController {
     @FXML
     private TableColumn<Crypto, String> columnTotalValue;
     //__
-
-
+    private CryptoList cryptolist = new CryptoList();
 
     
     @FXML
-    private void initialize(){
-        Crypto Bitcoin = new Crypto("btc", 62000, 0.00001);
-        Crypto Etherium = new Crypto("eth", 1000, 0.002);
+    private void initialize() {
+        System.out.println(cryptolist.getCryptoList().get(0).getName());
+        setMainModel();
         columnName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
         columnPrice.setCellValueFactory(cellData -> cellData.getValue().getPriceProperty());
         columnQuantity.setCellValueFactory(cellData -> cellData.getValue().getQuantityProperty());
         columnTotalValue.setCellValueFactory(cellData -> cellData.getValue().getAssetValue());
-        /*colonnaCognome.setCellValueFactory(cellData -> cellData.getValue().getCognomeProperty());
-        colonnaNome.setCellValueFactory(cellData -> cellData.getValue().getNomeProperty());
-        colonnaTelefono.setCellValueFactory(cellData -> cellData.getValue().getTelefonoProperty());
-        tabellaPersone.getSelectionModel().selectedItemProperty().addListener((observable,oldValue, newValue)-> mostraDettagliPersona(newValue));
-    */
+        //tabellaPersone.getSelectionModel().selectedItemProperty().addListener((observable,oldValue, newValue)-> mostraDettagliPersona(newValue));
     }
 
     void setMainModel() {
-                //tabellaPersone.setItems(gestione.getElencoPersone());
+        TableviewCrypto.setItems(cryptolist.getCryptoList());
     }
     
     /*  private void mostraDettagliPersona(Persona p) {
