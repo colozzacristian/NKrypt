@@ -46,6 +46,7 @@ public class App extends Application {
             
 
             loginController=loader.getController();
+            loginController.setApp(this);
             //mainController.setMainApp(this);
             
             Scene scene = new Scene(rootLayout);

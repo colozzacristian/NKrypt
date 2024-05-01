@@ -13,7 +13,8 @@ import javafx.scene.image.ImageView;
 
 public class LoginController {
 
-    private boolean n;
+  private boolean n;
+  private App app;
 
 
     @FXML ChoiceBox choiceFile;
@@ -36,9 +37,9 @@ public class LoginController {
     private FileCrypt filecrypt;
 
 
-
-
-
+    public void setApp(App app) {
+      this.app = app;
+    }
 
     @FXML
     private void initialize(){
@@ -62,6 +63,8 @@ public class LoginController {
     }
 
     public void newLogin() {
+
+      App change = new App();
 
       this.n=true;
 
