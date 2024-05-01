@@ -23,7 +23,7 @@ public class Caller extends Thread{
             }
             
         } catch (Exception e) {
-            // TODO: handle exception
+            isAlive=false;
         }
         
     

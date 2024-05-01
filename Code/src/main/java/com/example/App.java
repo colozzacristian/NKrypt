@@ -14,6 +14,12 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
+
+import javax.crypto.NoSuchPaddingException;
+
+import com.example.Threads.Caller;
+import com.example.Threads.CallerCaller;
+
 import javafx.event.EventType;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -80,17 +86,18 @@ public class App extends Application {
         alert.initOwner(primaryStage.getOwner());
         Optional<ButtonType> res = alert.showAndWait();
 
-        if(res.isPresent()) {
+        /*if(res.isPresent()) {
             if(res.get().equals(ButtonType.CANCEL))
                 try {
                     fileCrypt.encryption(); //chiamata della criptazione del file
                 }
-                catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException | InvalidAlgorithmParameterException | IOException e) {
+                catch (Exception e) {
                     e.printStackTrace();
                 }
                 event.consume(); //metodo che interrompe la chiusura della finestra
-        }
+        }*/
         caller.interrupt();
+        cc.interrupt();
    
     }
 

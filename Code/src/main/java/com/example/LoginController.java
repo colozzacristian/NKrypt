@@ -205,7 +205,7 @@ public class LoginController {
         return;
       }
       //file nuovo
-      FileCrypt fileCrypt = new FileCrypt(passwdFile.getText(), choiceFile.getValue().toString());
+      //FileCrypt fileCrypt = new FileCrypt(passwdFile.getText(), choiceFile.getValue().toString());
       app.menu_crypto();
     }
     else{
@@ -223,21 +223,19 @@ public class LoginController {
 
   }
 
-<<<<<<< HEAD
-  public void wrong_passwd() {
+public void wrong_passwd() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Login");
         alert.setContentText("Password errata");
         Optional<ButtonType> res = alert.showAndWait();
     }
 
-=======
+
   public boolean isN() {
     return n;
   }
 
   
->>>>>>> a12d4af (Base for the live value feature)
 
 }
 
