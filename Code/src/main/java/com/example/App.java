@@ -87,7 +87,7 @@ public class App extends Application {
         try {
             
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(App.class.getResource("/com/example/MainUI.fxml"));
+            loader.setLocation(App.class.getResource("/com/example/mainUI.fxml"));
             AnchorPane rootLayout = (AnchorPane) loader.load();
             
 
@@ -98,7 +98,7 @@ public class App extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
             //L'operatore :: si può utilizzare per fare chiamate di metodi di oggetti (si utilizza 
-            primaryStage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::closeWindowEvent);
+            //primaryStage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::closeWindowEvent);
         } catch (IOException e) {
             e.printStackTrace();
         }
