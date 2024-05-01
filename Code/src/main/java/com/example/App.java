@@ -87,7 +87,7 @@ public class App extends Application {
         try {
             
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(App.class.getResource("MainUI.fxml"));
+            loader.setLocation(App.class.getResource("/com/example/MainUI.fxml"));
             AnchorPane rootLayout = (AnchorPane) loader.load();
             
 
