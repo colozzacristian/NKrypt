@@ -3,18 +3,17 @@ package com.example;
 import java.io.File;
 import java.io.IOException;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Cursor;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.shape.CubicCurve;
 
 public class LoginController {
+
+    private boolean n;
 
 
     @FXML ChoiceBox choiceFile;
@@ -26,6 +25,13 @@ public class LoginController {
     @FXML ImageView btnPrev;
     @FXML ImageView btnEnter;
     @FXML PasswordField passwdFile;
+    @FXML PasswordField passwdFileConfirm;
+    @FXML TextField textName;
+    @FXML Label labelProblem1;
+    @FXML Label labelProblem2;
+    @FXML Label labelProblem3;
+
+
 
     private FileCrypt filecrypt;
 
@@ -44,10 +50,34 @@ public class LoginController {
         btnPrev.setVisible(false);
         btnEnter.setVisible(false);
         passwdFile.setVisible(false);
+        passwdFileConfirm.setVisible(false);
+        textName.setVisible(false);
+        labelProblem1.setVisible(false);
+        labelProblem2.setVisible(false);
+        labelProblem3.setVisible(false);
+
+
+
 
     }
 
-    public void testFile() {
+    public void newLogin() {
+
+      this.n=true;
+
+      btnPrev.setVisible(true);
+      btnEnter.setVisible(true);
+      passwdFile.setVisible(true);
+      passwdFileConfirm.setVisible(true);
+      textName.setVisible(true);
+
+
+      btnLoginFile1.setVisible(false);
+      btnNewLogin.setVisible(false);
+      
+      }
+
+    public void testFile(){
         try {
           File myObj = new File("filename.ncrypt");
           if (myObj.createNewFile()) {
@@ -58,21 +88,24 @@ public class LoginController {
         } catch (IOException e) {
           System.out.println("An error occurred.");
           e.printStackTrace();
-        }
-      }
+      }}
 
   @FXML
   public void loginFromFile(){
 
     int i=0;
+
+    File folder = new File("./");
+    File[] listOfFiles = folder.listFiles();
+
+    this.n=false;
    
     while(i<choiceFile.getItems().size()){
       choiceFile.getItems().remove(i);
       System.out.println("removed object");
     }
 
-    File folder = new File("./");
-    File[] listOfFiles = folder.listFiles();
+    
 
     for (File file : listOfFiles) {
     if (file.getName().contains(".ncrypt")) {
@@ -114,11 +147,52 @@ public class LoginController {
     btnPrev.setVisible(false);
     btnEnter.setVisible(false);
     passwdFile.setVisible(false);
-
+    passwdFileConfirm.setVisible(false);
+    textName.setVisible(false);
+    labelProblem1.setVisible(false);
+    labelProblem2.setVisible(false);
+    labelProblem3.setVisible(false);
 
     btnLoginFile1.setVisible(true);
     btnNewLogin.setVisible(true);
 
+
+  }
+
+  @FXML
+  public void enter(){
+
+    if(passwdFile.getText().equals("")){
+      labelProblem3.setVisible(true);
+      labelProblem1.setVisible(false);
+      labelProblem2.setVisible(false);
+      return;
+    }
+
+    if(this.n){
+
+    File folder = new File("./");
+    File[] listOfFiles = folder.listFiles();
+
+    for (File file : listOfFiles) {
+    if (file.getName().contains(".ncrypt") && file.getName().contains(textName.getText())) {
+          labelProblem1.setVisible(true);
+          labelProblem2.setVisible(false);
+          labelProblem3.setVisible(false);
+          return;
+        }
+    }
+    if(! passwdFile.getText().equals(passwdFileConfirm.getText())){
+      labelProblem2.setVisible(true);
+      labelProblem1.setVisible(false);
+      labelProblem3.setVisible(false);
+      return;
+    }
+
+
+    }else{
+    //passare a mainUI.fxml
+    }
 
   }
 

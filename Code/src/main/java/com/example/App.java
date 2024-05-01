@@ -61,7 +61,7 @@ public class App extends Application {
 
     private void closeWindowEvent(WindowEvent event) {
         
-        LoginController logincontroller = new LoginController();
+        //LoginController logincontroller = new LoginController();
         //logincontroller.get
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.getButtonTypes().remove(ButtonType.OK);

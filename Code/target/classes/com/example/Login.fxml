@@ -3,14 +3,16 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="235.0" maxWidth="469.0" minHeight="235.0" minWidth="469.0" prefHeight="235.0" prefWidth="469.0" stylesheets="@Style/style.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.LoginController"> 
+<AnchorPane maxHeight="235.0" maxWidth="469.0" minHeight="235.0" minWidth="469.0" prefHeight="235.0" prefWidth="469.0" styleClass="problem" stylesheets="@Style/style.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.LoginController"> 
    <children>
-      <Button fx:id="btnNewLogin" layoutX="226.0" layoutY="137.0" mnemonicParsing="false" onAction="#testFile" prefHeight="24.0" prefWidth="201.0" style="-fx-text-fill: white;" text="Create new login">
+      <Button fx:id="btnNewLogin" layoutX="226.0" layoutY="137.0" mnemonicParsing="false" onAction="#newLogin" prefHeight="24.0" prefWidth="201.0" style="-fx-text-fill: white;" text="Create new login">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
@@ -43,12 +45,12 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></ChoiceBox>
-      <PasswordField fx:id="passwdFile" layoutX="226.0" layoutY="90.0" prefHeight="24.0" prefWidth="177.0">
+      <PasswordField fx:id="passwdFile" layoutX="227.0" layoutY="106.0" prefHeight="24.0" prefWidth="177.0" promptText="Password">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </PasswordField>
-      <ImageView fx:id="btnEnter" fitHeight="28.0" fitWidth="28.0" layoutX="403.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="btnEnter" fitHeight="28.0" fitWidth="28.0" layoutX="403.0" layoutY="104.0" onMouseClicked="#enter" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@Images/right-to-bracket-solid.png" />
          </image>
@@ -56,6 +58,15 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
+      <PasswordField fx:id="passwdFileConfirm" layoutX="226.0" layoutY="137.0" prefHeight="24.0" prefWidth="177.0" promptText="Confirm password">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </PasswordField>
+      <TextField fx:id="textName" layoutX="227.0" layoutY="48.0" prefHeight="24.0" prefWidth="177.0" promptText="filename" />
+      <Label fx:id="labelProblem1" layoutX="253.0" layoutY="24.0" prefHeight="16.0" prefWidth="150.0" styleClass="problem" text="Filename not avaiable" />
+      <Label fx:id="labelProblem2" layoutX="220.0" layoutY="163.0" prefHeight="16.0" prefWidth="191.0" styleClass="problem" text="The passwords are different" />
+      <Label fx:id="labelProblem3" layoutX="231.0" layoutY="90.0" prefHeight="16.0" prefWidth="191.0" styleClass="problem" text="You must pick a password" />
    </children>
    <cursor>
       <Cursor fx:constant="DEFAULT" />

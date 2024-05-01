@@ -8,7 +8,13 @@ Button{
 }
 
 TextField{
-    -fx-background-color:#010400;
+    -fx-background-color:#A67DB8;
+
+}
+
+.problem{
+    -fx-text-fill:#ff0000;
+
 }
 
 BorderPane{
