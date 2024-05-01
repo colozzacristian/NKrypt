@@ -18,7 +18,6 @@ import javafx.stage.Modality;
 import javafx.scene.*;
 
 
-
 /**
  * JavaFX App
  */
