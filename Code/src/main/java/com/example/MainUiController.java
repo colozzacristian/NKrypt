@@ -50,16 +50,9 @@ public class MainUiController {
 
     
     @FXML
-<<<<<<< HEAD
     private void initialize() {
         System.out.println(cryptolist.getCryptoList().get(0).getName());
         setMainModel();
-=======
-    public void initialize(){
-        System.out.println("ciaoq");
-        Crypto Bitcoin = new Crypto("btc", 62000, 0.00001);
-        Crypto Etherium = new Crypto("eth", 1000, 0.002);
->>>>>>> d6de0c1 (fixxessss)
         columnName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
         columnPrice.setCellValueFactory(cellData -> cellData.getValue().getPriceProperty());
         columnQuantity.setCellValueFactory(cellData -> cellData.getValue().getQuantityProperty());
