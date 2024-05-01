@@ -12,34 +12,52 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.*;
 
-/**
- *
- * @author giuseppe.depietro
- */
+
+
 public class MainUiController {
  
 
-   /*  @FXML private CheckBox checkPulsante;
-    @FXML private Button btnDettagli;
-    @FXML private TextField txtCognome;
-    @FXML private TextField txtNome;
-    @FXML private TextField txtTelefono;
+     @FXML
+    private Label labelMoney;
+    @FXML
+    private Button btnCoinAdd;
+    @FXML
+    private Button btnSell;
+    @FXML
+    private Button btnBuy;
+    @FXML
+    private Button btnInspect;
 
-    @FXML private TableView<Persona> tabellaPersone;
+    @FXML
+    private TableView<Crypto> TableviewCrypto;
+    //__
+    @FXML
+    private TableColumn<Crypto, String> columnName;
+    @FXML
+    private TableColumn<Crypto, String> columnPrice;
+    @FXML
+    private TableColumn<Crypto, String> columnQuantity;
+    @FXML
+    private TableColumn<Crypto, String> columnTotalValue;
+    //__
 
-    @FXML private TableColumn<Persona, String> colonnaCognome;
-    @FXML private TableColumn<Persona, String> colonnaNome;
-    @FXML private TableColumn<Persona, String> colonnaTelefono;
-    */
+
 
     
     @FXML
     private void initialize(){
+        Crypto Bitcoin = new Crypto("btc", 62000, 0.00001);
+        Crypto Etherium = new Crypto("eth", 1000, 0.002);
+        columnName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
+        columnPrice.setCellValueFactory(cellData -> cellData.getValue().getPriceProperty());
+        columnQuantity.setCellValueFactory(cellData -> cellData.getValue().getQuantityProperty());
+        columnTotalValue.setCellValueFactory(cellData -> cellData.getValue().getAssetValue());
         /*colonnaCognome.setCellValueFactory(cellData -> cellData.getValue().getCognomeProperty());
         colonnaNome.setCellValueFactory(cellData -> cellData.getValue().getNomeProperty());
         colonnaTelefono.setCellValueFactory(cellData -> cellData.getValue().getTelefonoProperty());
