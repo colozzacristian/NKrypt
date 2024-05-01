@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="235.0" maxWidth="469.0" minHeight="235.0" minWidth="469.0" prefHeight="235.0" prefWidth="469.0" stylesheets="@Style/style.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.LoginController"> 
+   <children>
+      <Button fx:id="btnNewLogin" layoutX="226.0" layoutY="137.0" mnemonicParsing="false" onAction="#testFile" prefHeight="24.0" prefWidth="201.0" style="-fx-text-fill: white;" text="Create new login">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="btnLoginFile1" layoutX="226.0" layoutY="171.0" mnemonicParsing="false" onAction="#loginFromFile" prefHeight="24.0" prefWidth="201.0" text="Login from file">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <ImageView fitHeight="180.0" fitWidth="171.0" layoutX="36.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/logo.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="btnDelete" fitHeight="28.0" fitWidth="28.0" layoutX="403.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/trash-can-solid.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="btnPrev" fitHeight="69.0" fitWidth="28.0" layoutX="221.0" layoutY="14.0" onMouseClicked="#toMainMenu" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/back.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ChoiceBox fx:id="choiceFile" layoutX="226.0" layoutY="48.0" prefHeight="24.0" prefWidth="177.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ChoiceBox>
+      <PasswordField fx:id="passwdFile" layoutX="226.0" layoutY="90.0" prefHeight="24.0" prefWidth="177.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </PasswordField>
+      <ImageView fx:id="btnEnter" fitHeight="28.0" fitWidth="28.0" layoutX="403.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/right-to-bracket-solid.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+   </children>
+   <cursor>
+      <Cursor fx:constant="DEFAULT" />
+   </cursor>
+</AnchorPane>
