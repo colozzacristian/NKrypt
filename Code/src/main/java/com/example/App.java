@@ -91,11 +91,14 @@ public class App extends Application {
             AnchorPane rootLayout = (AnchorPane) loader.load();
             
 
-            mainController=loader.getController();
+
             //mainController.setMainApp(this);
             
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
+
+
+            mainController=loader.getController();
             primaryStage.show();
             //L'operatore :: si può utilizzare per fare chiamate di metodi di oggetti (si utilizza 
             //primaryStage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::closeWindowEvent);
