@@ -2,9 +2,19 @@ package com.example;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Optional;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -35,7 +45,12 @@ public class LoginController {
 
 
     private FileCrypt filecrypt;
+    private Boolean controllo;
+    
 
+    public FileCrypt getFilecrypt() {
+      return filecrypt;
+    }
 
     public void setApp(App app) {
       this.app = app;
@@ -63,8 +78,6 @@ public class LoginController {
     }
 
     public void newLogin() {
-
-      App change = new App();
 
       this.n=true;
 
@@ -111,9 +124,9 @@ public class LoginController {
     
 
     for (File file : listOfFiles) {
-    if (file.getName().contains(".ncrypt")) {
+      if (file.getName().contains(".ncrypt")) {
         choiceFile.getItems().add(file.getName());
-        }
+      }
     }
 
     choiceFile.setVisible(true);
@@ -172,33 +185,50 @@ public class LoginController {
       return;
     }
 
-    if(this.n){
+    if(this.n) {
 
-    File folder = new File("./");
-    File[] listOfFiles = folder.listFiles();
+      File folder = new File("./");
+      File[] listOfFiles = folder.listFiles();
 
-    for (File file : listOfFiles) {
-    if (file.getName().contains(".ncrypt") && file.getName().contains(textName.getText())) {
+      for (File file : listOfFiles) {
+        if (file.getName().contains(".ncrypt") && file.getName().contains(textName.getText())) {
           labelProblem1.setVisible(true);
           labelProblem2.setVisible(false);
           labelProblem3.setVisible(false);
           return;
         }
-    }
-    if(! passwdFile.getText().equals(passwdFileConfirm.getText())){
-      labelProblem2.setVisible(true);
-      labelProblem1.setVisible(false);
-      labelProblem3.setVisible(false);
-      return;
-    }
-    app.menu_crypto();
-
-    }else{
+      }
+      if(! passwdFile.getText().equals(passwdFileConfirm.getText())){
+        labelProblem2.setVisible(true);
+        labelProblem1.setVisible(false);
+        labelProblem3.setVisible(false);
+        return;
+      }
+      //file nuovo
+      FileCrypt fileCrypt = new FileCrypt(passwdFile.getText(), choiceFile.getValue().toString());
       app.menu_crypto();
-    //passare a mainUI.fxml
+    }
+    else{
+      //entro con file gia creato
+      this.controllo = false;
+      this.filecrypt = new FileCrypt(passwdFile.getText(), choiceFile.getValue().toString());
+      try {
+        if (filecrypt.decryption(passwdFile.getText())) app.menu_crypto();
+        else wrong_passwd();
+      }
+      catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException | InvalidAlgorithmParameterException | IOException e) {
+        e.printStackTrace();
+      }
     }
 
   }
+
+  public void wrong_passwd() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Login");
+        alert.setContentText("Password errata");
+        Optional<ButtonType> res = alert.showAndWait();
+    }
 
 
 }

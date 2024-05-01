@@ -10,7 +10,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+
 import javafx.event.EventType;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -27,6 +35,7 @@ public class App extends Application {
     private Stage primaryStage;
     private MainUiController mainController;
     private LoginController loginController;
+    private FileCrypt fileCrypt;
     
 
     @Override
@@ -61,7 +70,7 @@ public class App extends Application {
     }
 
     private void closeWindowEvent(WindowEvent event) {
-        
+        this.fileCrypt = loginController.getFilecrypt();
         //LoginController logincontroller = new LoginController();
         //logincontroller.get
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -75,7 +84,12 @@ public class App extends Application {
 
         if(res.isPresent()) {
             if(res.get().equals(ButtonType.CANCEL))
-                //chiamata della criptazione del file
+                try {
+                    fileCrypt.encryption(); //chiamata della criptazione del file
+                }
+                catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException | InvalidAlgorithmParameterException | IOException e) {
+                    e.printStackTrace();
+                }
                 event.consume(); //metodo che interrompe la chiusura della finestra
         }
    
