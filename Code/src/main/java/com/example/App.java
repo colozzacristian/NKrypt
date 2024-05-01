@@ -1,3 +1,4 @@
+
 package com.example;
 
 import javafx.application.Application;
@@ -76,11 +77,33 @@ public class App extends Application {
         if(res.isPresent()) {
             if(res.get().equals(ButtonType.CANCEL))
                 //chiamata della criptazione del file
-                //metodo che interrompe la chiusura della finestra
-                event.consume();
+                event.consume(); //metodo che interrompe la chiusura della finestra
         }
    
-}
+    }
+
+    public void menu_crypto() {
+        
+        try {
+            
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(App.class.getResource("MainUI.fxml"));
+            AnchorPane rootLayout = (AnchorPane) loader.load();
+            
+
+            mainController=loader.getController();
+            //mainController.setMainApp(this);
+            
+            Scene scene = new Scene(rootLayout);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+            //L'operatore :: si può utilizzare per fare chiamate di metodi di oggetti (si utilizza 
+            primaryStage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::closeWindowEvent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+    }
     
 
     static void setRoot(String fxml) throws IOException {

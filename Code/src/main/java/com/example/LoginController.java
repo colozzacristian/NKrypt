@@ -191,9 +191,10 @@ public class LoginController {
       labelProblem3.setVisible(false);
       return;
     }
-
+    app.menu_crypto();
 
     }else{
+      app.menu_crypto();
     //passare a mainUI.fxml
     }
 
