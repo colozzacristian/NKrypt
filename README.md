@@ -1,10 +1,20 @@
 # NCrypt
-Simulazione di un Compra/Vendita di cryptovalute
+Simulate a crypto wallet, no real money is involved.
+You can test out your investment skills safely using this app!
 
-# Planning
+# How to use it
 
-- [ ] nel menù di login va selezionato o creato un file che andrà decriptato all'avvio, e criptato allo spegnimento ANCHE IN CASO DI ERRORI. Se necessario usare la cartella tmp(da controllare compatibilità con windows).
+## Starting
+After starting the application you'll be greated by a login screen, prompting you to either login from a file or create a new one. This idea was inspired from KeePassXC, indeed all the "save files" are encrypted!
+## Main menu
+Once the log in is complited you'll be welcomed by a table containing various crypto currencies, you can click on the to enable actions such as:
+- inspecting the graph
+- buying
+- selling
+You can also add to the list a crypto currency from a selection of avaiable ones.
 
-- [ ]  all'avvio mostrare una tableview contenente le cripto disponibili, i cui valori saranno (idealmente) raccolti dai valori reali. L'app deve avere quindi un controllo per vedere se si è connessi a internet e in maniera più precisa
+On the top right of the screen you'll find your balance, you can add money at any time if you need to!
 
-- [ ] se si riesce a trovare un modo dare la possibilità di aggiungere più crypto
+## Considerations
+please keep in mind that all of this was made using free(as in cost) tools and thus we are limited to what our API provider provides us, and to what the other free tools avaiable lets us do.
+We are limited expecially in API calls. 
