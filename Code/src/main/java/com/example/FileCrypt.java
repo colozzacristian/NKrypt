@@ -17,11 +17,17 @@ import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
+
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 /**
  *
@@ -31,7 +37,7 @@ public class FileCrypt {
     private static final String SYM_ALGORITHM 	= "AES";
     private static final Integer SYM_KEY_SIZE 	= 128;
     
-    private Key key;
+    private SecretKey key;
     private String filePath;
     private File file;
     private byte [] byte_file;
@@ -41,9 +47,24 @@ public class FileCrypt {
     public FileCrypt(String chiave, String path_file) {
         this.filePath=path_file;
         this.file = new File (this.filePath);
-        key = new SecretKeySpec(chiave.getBytes(), SYM_ALGORITHM);
+        try {
+            key=getKeyFromPassword(chiave, "crypt");
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        //key = new SecretKeySpec(chiave.getBytes(), SYM_ALGORITHM);
     }
     
+    public static SecretKey getKeyFromPassword(String password, String salt)
+    throws NoSuchAlgorithmException, InvalidKeySpecException {
+    
+    SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+    KeySpec spec = new PBEKeySpec(password.toCharArray(), salt.getBytes(), 65536, 256);
+    SecretKey secret = new SecretKeySpec(factory.generateSecret(spec)
+        .getEncoded(), "AES");
+    return secret;
+}
     
     public void modifica_file() throws IOException {
         //...
@@ -53,12 +74,15 @@ public class FileCrypt {
     
     public void encryption() throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, IOException {
         byte [] iv = inizializza_byte();
+        System.out.println("hey 1");
         Cipher cipher = Cipher.getInstance( "AES/CBC/PKCS5Padding" );
         cipher.init( Cipher.ENCRYPT_MODE, key, new IvParameterSpec( iv ) );
         this.key=new SecretKeySpec("0000000".getBytes(), SYM_ALGORITHM); //cambio la chiave per non rendere più disponibile la vecchia chiave (volendo)
         byte [] new_byte = cipher.doFinal( byte_file );
         Path path = Paths.get(this.filePath);
         Files.write(path, new_byte);
+
+        System.out.println("hey 2");
         
         FileWriter fileWriter = new FileWriter(this.filePath, true); // true per appendere al file
         BufferedWriter writer = new BufferedWriter(fileWriter);
@@ -81,7 +105,13 @@ public class FileCrypt {
         Scanner reader;
         byte [] iv = inizializza_byte();
         Cipher cipher = Cipher.getInstance( "AES/CBC/PKCS5Padding" );
-        key = new SecretKeySpec(chiave.getBytes(), SYM_ALGORITHM);
+        try {
+            key=getKeyFromPassword(chiave, "crypt");
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        //key = new SecretKeySpec(chiave.getBytes(), SYM_ALGORITHM);
         cipher.init( Cipher.ENCRYPT_MODE, key, new IvParameterSpec( iv ) );
         byte [] new_byte = cipher.doFinal( byte_file );
         Path path = Paths.get(this.filePath);

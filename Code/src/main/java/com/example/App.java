@@ -86,19 +86,20 @@ public class App extends Application {
         alert.initOwner(primaryStage.getOwner());
         Optional<ButtonType> res = alert.showAndWait();
 
-        /*if(res.isPresent()) {
-            if(res.get().equals(ButtonType.CANCEL))
+        if(res.isPresent()) {
+            if(res.get().equals(ButtonType.CANCEL)) {
                 try {
+                    this.fileCrypt = loginController.getFile();
                     fileCrypt.encryption(); //chiamata della criptazione del file
                 }
                 catch (Exception e) {
                     e.printStackTrace();
                 }
+                caller.interrupt();
+                cc.interrupt();
                 event.consume(); //metodo che interrompe la chiusura della finestra
-        }*/
-        caller.interrupt();
-        cc.interrupt();
-   
+            }
+        }
     }
 
     public void menu_crypto() {

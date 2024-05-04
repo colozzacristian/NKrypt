@@ -6,7 +6,6 @@
 package com.example;
 
 import java.util.concurrent.Semaphore;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
