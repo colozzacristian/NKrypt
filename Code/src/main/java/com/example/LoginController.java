@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Optional;
 
 import javax.crypto.BadPaddingException;
@@ -27,7 +28,7 @@ public class LoginController {
   private App app;
 
 
-    @FXML ChoiceBox choiceFile;
+    @FXML ChoiceBox<String> choiceFile;
 
 
     @FXML Button btnNewLogin;
@@ -146,12 +147,12 @@ public class LoginController {
 
 
   @FXML
-  public void loginFile() {
+  public void loginFile() throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
     if (choiceFile.getValue() == null) {
       //chiamare alert
     }
     else {
-      this.filecrypt = new FileCrypt(passwdFile.getText(), (String)choiceFile.getValue());
+      this.filecrypt = new FileCrypt(passwdFile.getText(), (String)choiceFile.getAccessibleText());
     }
   }
 
@@ -176,7 +177,7 @@ public class LoginController {
   }
 
   @FXML
-  public void enter(){
+  public void enter() throws IOException, NoSuchAlgorithmException, InvalidKeySpecException{
 
     if(passwdFile.getText().equals("")){
       labelProblem3.setVisible(true);
@@ -235,7 +236,7 @@ public class LoginController {
     return n;
   }
 
-  public static FileCrypt getFile() {
+  public FileCrypt getFile() {
     return this.filecrypt;
   }
 

@@ -87,18 +87,19 @@ public class App extends Application {
         Optional<ButtonType> res = alert.showAndWait();
 
         if(res.isPresent()) {
-            if(res.get().equals(ButtonType.CANCEL)) {
+            if(res.get().equals(ButtonType.YES)) {
                 try {
                     this.fileCrypt = loginController.getFile();
                     fileCrypt.encryption(); //chiamata della criptazione del file
-                }
-                catch (Exception e) {
+                    System.out.println("pippo");
+                    caller.interrupt();
+                    cc.interrupt();
+                    event.consume(); // consuma l'evento solo quando l'utente conferma la chiusura
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-                caller.interrupt();
-                cc.interrupt();
-                event.consume(); //metodo che interrompe la chiusura della finestra
             }
+            
         }
     }
 
