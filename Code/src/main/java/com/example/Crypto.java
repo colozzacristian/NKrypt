@@ -12,10 +12,9 @@ public class Crypto {
     private StringProperty quantityProperty;
 
     public Crypto(String name, double price, double quantity) {
-        this.price = price;
+        this.setPrice(price);
         this.quantity = quantity;
         this.nameProperty = new SimpleStringProperty(name);
-        this.priceProperty = new SimpleStringProperty(price+"");
         this.quantityProperty = new SimpleStringProperty(quantity+"");
     }
 
@@ -28,11 +27,11 @@ public class Crypto {
     }
 
     public StringProperty getPriceProperty() {
-        return nameProperty;
+        return priceProperty;
     }
 
     public StringProperty getQuantityProperty() {
-        return nameProperty;
+        return quantityProperty;
     }
 
     public double getPrice() {
@@ -41,6 +40,7 @@ public class Crypto {
 
     public void setPrice(double price) {
         this.price = price;
+        this.priceProperty= new SimpleStringProperty(price+"");
     }
 
     public double getQuantity() {

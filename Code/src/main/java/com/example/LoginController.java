@@ -131,7 +131,7 @@ public class LoginController {
     }
 
     choiceFile.setVisible(true);
-    btnDelete.setVisible(true);
+    //btnDelete.setVisible(true);
     btnPrev.setVisible(true);
     btnEnter.setVisible(true);
     passwdFile.setVisible(true);
@@ -169,6 +169,9 @@ public class LoginController {
     labelProblem1.setVisible(false);
     labelProblem2.setVisible(false);
     labelProblem3.setVisible(false);
+    passwdFile.setText("");
+    passwdFileConfirm.setText("");
+    textName.setText("");
 
     btnLoginFile1.setVisible(true);
     btnNewLogin.setVisible(true);
@@ -192,7 +195,7 @@ public class LoginController {
       File[] listOfFiles = folder.listFiles();
 
       for (File file : listOfFiles) {
-        if (file.getName().contains(".ncrypt") && file.getName().contains(textName.getText())) {
+        if (file.getName().contains(".ncrypt") && file.getName().equals(textName.getText()+".ncrypt")) {
           labelProblem1.setVisible(true);
           labelProblem2.setVisible(false);
           labelProblem3.setVisible(false);

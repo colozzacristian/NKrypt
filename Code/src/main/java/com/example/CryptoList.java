@@ -19,8 +19,16 @@ public class CryptoList {
     private ObservableList<Crypto> cryptos = FXCollections.observableArrayList(); 
 
     public CryptoList() {
-        cryptos.add(new Crypto("btc", 62000, 0.00001));
-        cryptos.add(new Crypto("eth", 1000, 0.002));
+        cryptos.add(new Crypto("btc", 0, 0));
+        cryptos.add(new Crypto("eth", 0, 0));
+        cryptos.add(new Crypto("sol", 0, 0));
+        cryptos.add(new Crypto("etc", 0, 0));
+        cryptos.add(new Crypto("usdt", 0, 0));
+        cryptos.add(new Crypto("usdc", 0, 0));
+        cryptos.add(new Crypto("doge", 0, 0));
+        cryptos.add(new Crypto("shib", 0, 0));
+        cryptos.add(new Crypto("pepe", 0, 0));
+
     }
     
      public ObservableList<Crypto> getCryptoList() {

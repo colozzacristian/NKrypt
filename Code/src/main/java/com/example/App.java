@@ -45,7 +45,7 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("NCrypt");
+        this.primaryStage.setTitle("NKrypt");
         inizializza();
     }
 
@@ -134,6 +134,7 @@ public class App extends Application {
                 //leggi da file
             }
             caller.start();
+            caller.setMain(mainController);
             caller.setCryptoList(cl);
             cc.start();
             cc.setCryptoList(cl);

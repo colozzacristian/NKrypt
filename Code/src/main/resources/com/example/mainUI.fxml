@@ -5,15 +5,18 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="271.0" prefWidth="604.0" stylesheets="@Style/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.MainUiController">
+
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="604.0" stylesheets="@Style/style.css" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.MainUiController">
    <children>
       <GridPane prefHeight="50.0" prefWidth="604.0" stylesheets="@Style/style.css">
          <columnConstraints>
@@ -30,15 +33,7 @@
                   <Image url="@Images/NKript.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="36.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Images/gear-solid.png" />
-               </image>
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin>
-            </ImageView>
-            <Label alignment="CENTER_RIGHT" ellipsisString="ToMuch" prefHeight="50.0" prefWidth="141.0" stylesheets="@Style/style.css" text="€ 50" textAlignment="RIGHT" textOverrun="WORD_ELLIPSIS" wrapText="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+            <Label fx:id="labelMoney" alignment="CENTER_RIGHT" ellipsisString="ToMuch" prefHeight="50.0" prefWidth="141.0" stylesheets="@Style/style.css" text="€ 50" textAlignment="RIGHT" textOverrun="WORD_ELLIPSIS" wrapText="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
@@ -49,17 +44,38 @@
          </children>
       </GridPane>
 
-      <TableView fx:id="TableviewCrypto" layoutX="19.0" layoutY="59.0" prefHeight="317.0" prefWidth="394.0" style="-fx-background-color: Black;">
+
+      <TableView fx:id="TableviewCrypto" layoutY="64.0" prefHeight="265.0" prefWidth="410.0" style="-fx-background-color: Black;">
         <columns>
           <TableColumn fx:id="columnName" prefWidth="75.0" styleClass="TableColumn" text="Coin" />
-          <TableColumn fx:id="columnPrice" prefWidth="75.0" styleClass="TableColumn" text="Price" />
-            <TableColumn fx:id="columnQuantity" prefWidth="75.0" styleClass="TableColumn" text="Owned" />
-            <TableColumn fx:id="columnTotalValue" prefWidth="167.0" styleClass="TableColumn" text="Total owned value" />
+          <TableColumn fx:id="columnPrice" prefWidth="78.0" styleClass="TableColumn" text="Price" />
+            <TableColumn fx:id="columnQuantity" prefWidth="72.0" styleClass="TableColumn" text="Owned" />
+            <TableColumn fx:id="columnTotalValue" prefWidth="175.0" styleClass="TableColumn" text="Total owned value" />
+
         </columns>
       </TableView>
-      <Button layoutX="425.0" layoutY="59.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="156.0" text="add a coin" />
-      <Button layoutX="425.0" layoutY="103.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="156.0" text="Inspect selected" />
-      <Button layoutX="425.0" layoutY="152.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="156.0" text="buy selected" />
-      <Button layoutX="425.0" layoutY="200.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="156.0" text="sell selected" />
+      <Button layoutX="425.0" layoutY="103.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="156.0" text="Inspect selected" visible="false" />
+      <Button fx:id="btnBuy" layoutX="425.0" layoutY="237.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="156.0" text="buy selected" />
+      <Button fx:id="btnSell" layoutX="425.0" layoutY="270.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="156.0" text="sell selected" />
+      <StackPane layoutX="-251.0" layoutY="-157.0" prefHeight="150.0" prefWidth="200.0" />
+      <Button fx:id="btnAddBalance" layoutX="425.0" layoutY="59.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="156.0" text="Add balance" />
+      <Label fx:id="labelConnection" layoutX="425.0" layoutY="95.0" prefHeight="83.0" prefWidth="179.0" styleClass="problem" text="You are not connected. Wait a minute or click on the red button to attempt to reconnect." textOverrun="LEADING_ELLIPSIS" wrapText="true" />
+      <Button fx:id="btnReconnect" layoutX="425.0" layoutY="184.0" mnemonicParsing="false" onAction="#reconnectAttempt" prefHeight="24.0" prefWidth="156.0" style="-fx-background-color: red;" text="Reconnect" />
+      <ImageView fx:id="btnBack" fitHeight="50.0" fitWidth="42.0" layoutX="33.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Images/back.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="labelAction" layoutX="98.0" layoutY="62.0" prefHeight="42.0" prefWidth="163.0" text="Action">
+         <font>
+            <Font name="Noto Sans Bengali Regular" size="23.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtCoins" layoutX="121.0" layoutY="208.0" prefHeight="24.0" prefWidth="163.0" />
+      <Button fx:id="btnTransact" layoutX="121.0" layoutY="237.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="163.0" text="Execute transaction" />
+      <Button fx:id="btnMaxCoin" layoutX="284.0" layoutY="208.0" mnemonicParsing="false" text="Max" />
+      <TextField fx:id="txtEuros" layoutX="120.0" layoutY="172.0" prefHeight="24.0" prefWidth="163.0" />
+      <Button fx:id="btnMaxEur" layoutX="284.0" layoutY="172.0" mnemonicParsing="false" text="Max" />
+      <Label fx:id="labelStirato" layoutX="121.0" layoutY="135.0" prefHeight="34.0" prefWidth="179.0" styleClass="problem" text="You are stirato" textOverrun="LEADING_ELLIPSIS" wrapText="true" />
    </children>
 </AnchorPane>
