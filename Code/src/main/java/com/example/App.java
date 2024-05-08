@@ -74,9 +74,7 @@ public class App extends Application {
     }
 
     private void closeWindowEvent(WindowEvent event) {
-        this.fileCrypt = loginController.getFilecrypt();
-        //LoginController logincontroller = new LoginController();
-        //logincontroller.get
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.getButtonTypes().remove(ButtonType.OK);
         alert.getButtonTypes().add(ButtonType.CANCEL);
@@ -87,16 +85,26 @@ public class App extends Application {
         Optional<ButtonType> res = alert.showAndWait();
 
         if(res.isPresent()) {
-            if(res.get().equals(ButtonType.YES)) {
-                try {
-                    this.fileCrypt = loginController.getFile();
-                    fileCrypt.encryption(); //chiamata della criptazione del file
-                    System.out.println("pippo");
-                    caller.interrupt();
-                    cc.interrupt();
-                    event.consume(); // consuma l'evento solo quando l'utente conferma la chiusura
-                } catch (Exception e) {
-                    e.printStackTrace();
+            if(res.get().equals(ButtonType.CANCEL)) {
+                System.out.println("Cambiato idea");
+                event.consume(); //ANNULLA la chiusura
+            }
+            else {
+                if (loginController.getFile()==null) {
+                    System.out.println("Non è stata effettutata ancora la login");
+                    //event.consume();
+                }
+                else{
+                    try {
+                        this.fileCrypt = loginController.getFile();
+                        fileCrypt.encryption(); //chiamata della criptazione del file
+                        System.out.println("pippo");
+                        caller.interrupt();
+                        cc.interrupt();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
             

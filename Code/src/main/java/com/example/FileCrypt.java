@@ -113,7 +113,16 @@ public class FileCrypt {
     }
     
     
-    public boolean decryption(String chiave) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, IOException {
+    public boolean decryption(String chiave) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, IOException, InvalidKeySpecException {
+        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+        KeySpec spec = new PBEKeySpec(chiave.toCharArray(), "crypto".getBytes(), 65536, 256);
+        try {
+            this.key = new SecretKeySpec(factory.generateSecret(spec).getEncoded(), "AES");
+        } catch (InvalidKeySpecException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        aggiorna_byte_file();
         this.copy_file = new File ("copy_"+this.filePath);
         this.copy_file = this.file; //copia nel caso la decriptazione avvenga con la chiave errata
         Scanner reader;
@@ -130,7 +139,7 @@ public class FileCrypt {
 
         //
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-        cipher.init(Cipher.ENCRYPT_MODE, this.key);
+        cipher.init(Cipher.DECRYPT_MODE, this.key);
         //
 
         //key = new SecretKeySpec(chiave.getBytes(), SYM_ALGORITHM);
