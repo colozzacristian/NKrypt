@@ -27,11 +27,11 @@ public class Crypto {
     }
 
     public StringProperty getPriceProperty() {
-        return nameProperty;
+        return priceProperty;
     }
 
     public StringProperty getQuantityProperty() {
-        return nameProperty;
+        return quantityProperty;
     }
 
     public double getPrice() {
