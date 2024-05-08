@@ -71,6 +71,10 @@ public class MainUiController {
         columnTotalValue.setCellValueFactory(cellData -> cellData.getValue().getAssetValue());
     }
 
+    public void refreshTable(){
+        TableviewCrypto.refresh();
+    }
+
     public CryptoList getCryptolist() {
         return cryptolist;
     }

@@ -126,6 +126,7 @@ public class App extends Application {
                 //leggi da file
             }
             caller.start();
+            caller.setMain(mainController);
             caller.setCryptoList(cl);
             cc.start();
             cc.setCryptoList(cl);
