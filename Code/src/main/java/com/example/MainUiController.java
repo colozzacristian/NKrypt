@@ -21,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.*;
 
 
@@ -31,6 +32,10 @@ public class MainUiController {
      @FXML
     private Label labelMoney;
     @FXML
+    private Label labelAction;
+    @FXML
+    private Label labelStirato;
+    @FXML
     private Label labelConnection;
     @FXML
     private Button btnReconnect;
@@ -39,9 +44,18 @@ public class MainUiController {
     @FXML
     private Button btnBuy;
     @FXML
+    private Button btnTransact;
+    @FXML
+    private Button btnMaxCoin;
+    @FXML
+    private Button btnMaxEur;
+
+    @FXML
     private Button btnInspect;
     @FXML
     private Button btnAddBalance;
+    @FXML
+    private ImageView btnBack;
 
     @FXML
     private TableView<Crypto> TableviewCrypto;
@@ -54,6 +68,11 @@ public class MainUiController {
     private TableColumn<Crypto, String> columnQuantity;
     @FXML
     private TableColumn<Crypto, String> columnTotalValue;
+
+    @FXML
+    private TextField txtEuros;
+    @FXML
+    private TextField txtCoins;
     //__
     private CryptoList cryptolist;
     Caller caller;
@@ -62,6 +81,16 @@ public class MainUiController {
     @FXML
     private void initialize() {
         //tabellaPersone.getSelectionModel().selectedItemProperty().addListener((observable,oldValue, newValue)-> mostraDettagliPersona(newValue));
+        txtCoins.setVisible(false);
+        txtEuros.setVisible(false);
+        btnBack.setVisible(false);
+        btnTransact.setVisible(false);
+        btnMaxCoin.setVisible(false);
+        btnMaxEur.setVisible(false);
+        labelAction.setVisible(false);
+        labelStirato.setVisible(false);
+        labelConnection.setVisible(false);
+        btnReconnect.setVisible(false);
     }
 
 
@@ -123,38 +152,6 @@ public class MainUiController {
         }
         
         //tabellaPersone.getSelectionModel().clearSelection();
-    }
-     
-     @FXML
-     private void metodoCheNonFaNulla(){
-         int indiceSelezionato=tabellaPersone.getSelectionModel().getSelectedIndex();
-         if(indiceSelezionato!=-1){
-            Persona p=tabellaPersone.getSelectionModel().getSelectedItem();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText(p.getCognome());
-            alert.showAndWait();
-            
-         }
-         
-         
-     }
-     
-     @FXML
-     private void rimuoviPersona(){
-         int indiceSelezionato=0;
-         //eliminare un oggetto dalla lista
-         gestione.getElencoPersone().remove(indiceSelezionato);
-         //aggiungere un oggetto alla lista
-         gestione.getElencoPersone().add(new Persona("","",""));
-     }
-     @FXML
-     private void mostraNascondiPulsante(){
-         if(checkPulsante.isSelected()){
-             btnDettagli.setVisible(false);
-         }else{
-             btnDettagli.setVisible(true);
-         }
-         
-     }*/
+    }*/
     
 }
