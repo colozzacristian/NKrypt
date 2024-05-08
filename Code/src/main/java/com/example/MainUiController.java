@@ -91,6 +91,9 @@ public class MainUiController {
         labelStirato.setVisible(false);
         labelConnection.setVisible(false);
         btnReconnect.setVisible(false);
+        //da attivare prima di consegnare
+        //btnBuy.setDisable(true);
+        //btnSell.setDisable(true);
     }
 
 
