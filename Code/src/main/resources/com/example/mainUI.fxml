@@ -49,12 +49,12 @@
          </children>
       </GridPane>
 
-      <TableView layoutX="19.0" layoutY="59.0" prefHeight="317.0" prefWidth="394.0" style="-fx-background-color: Black;">
+      <TableView fx:id="TableviewCrypto" layoutX="19.0" layoutY="59.0" prefHeight="317.0" prefWidth="394.0" style="-fx-background-color: Black;">
         <columns>
-          <TableColumn prefWidth="75.0" styleClass="TableColumn" text="Coin" />
-          <TableColumn prefWidth="75.0" styleClass="TableColumn" text="Price" />
-            <TableColumn prefWidth="75.0" styleClass="TableColumn" text="Owned" />
-            <TableColumn prefWidth="167.0" styleClass="TableColumn" text="Total owned value" />
+          <TableColumn fx:id="columnName" prefWidth="75.0" styleClass="TableColumn" text="Coin" />
+          <TableColumn fx:id="columnPrice" prefWidth="75.0" styleClass="TableColumn" text="Price" />
+            <TableColumn fx:id="columnQuantity" prefWidth="75.0" styleClass="TableColumn" text="Owned" />
+            <TableColumn fx:id="columnTotalValue" prefWidth="167.0" styleClass="TableColumn" text="Total owned value" />
         </columns>
       </TableView>
       <Button layoutX="425.0" layoutY="59.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="156.0" text="add a coin" />

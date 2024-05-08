@@ -1,16 +1,18 @@
 package com.example.Threads;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.net.URI;
+import java.net.http.HttpClient;
 
 import com.example.CryptoList;
 
 public class Caller extends Thread{
     String baseUrl="https://min-api.cryptocompare.com/data/pricemulti?fsyms=";
-    String append2="&tsyms=EUR&api_key=8834b8ab09b3a21eac9fb72abab5b20e17a826a1c8d004cc";
+    String append2="&tsyms=EUR&api_key=8834b8ab3a21eac9fb72abab5a86ec3facab20e17a826a1c8cc9338d";
     CryptoList cryptoList;
     boolean isAlive=true;
-    //API KEY in URL - just append ? or &api_key={your_api_key} the the end of your request url
+
     @Override
     public void run() {
 
@@ -19,6 +21,7 @@ public class Caller extends Thread{
             while(isAlive){
                 cryptoList.getCall2Action().acquire();
                 System.out.println(buildURL());
+                request();
                 
             }
             
@@ -49,13 +52,21 @@ public class Caller extends Thread{
     }
 
     private void request(){
+        HttpRequest request = HttpRequest.newBuilder()
+        .uri(URI.create(buildURL()))
+        .method("GET", HttpRequest.BodyPublishers.noBody())
+        .build() ;
+
+        HttpResponse<String> response = null;
+
         try {
-            URL url = new URL("http://example.com");
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
+            response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
         } catch (Exception e) {
-            System.out.println("error in the request");
+            e.printStackTrace();
         }
+
+        System.out.println(response.body());
+       
         
     }
 
