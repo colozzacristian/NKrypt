@@ -6,6 +6,8 @@ package com.example;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.util.Scanner;
 import java.io.IOException;
@@ -123,8 +125,7 @@ public class FileCrypt {
             e.printStackTrace();
         }
         aggiorna_byte_file();
-        this.copy_file = new File ("copy_"+this.filePath);
-        this.copy_file = this.file; //copia nel caso la decriptazione avvenga con la chiave errata
+        //this.copy_file = new File(this.file, "copy_"+this.filePath); //copia nel caso la decriptazione avvenga con la chiave errata
         Scanner reader;
         ////byte [] iv = inizializza_byte();
         ////Cipher cipher = Cipher.getInstance( "AES/ECB/PKCS5Padding" );
@@ -136,18 +137,47 @@ public class FileCrypt {
             e.printStackTrace();
         }
         */
+        File newfile = new File ("new2"+this.filePath);
+        newfile.createNewFile();
+        FileInputStream input = new FileInputStream(file);
+        FileOutputStream output = new FileOutputStream(newfile);
 
-        //
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
         cipher.init(Cipher.DECRYPT_MODE, this.key);
-        //
 
+        byte[] buffer = new byte[1024];
+
+        int count = input.read(buffer);
+
+        while (count >= 0) {
+            output.write(cipher.update(buffer, 0, count)); // HERE I WAS DOING doFinal() method
+    
+            //AND HERE WAS THE BadPaddingExceotion -- the first pass in the while structure
+    
+            count = input.read(buffer);
+        }
+        output.write(cipher.doFinal()); // AND I DID NOT HAD THIS LINE BEFORE
+        output.flush();
+
+        System.out.println("yo1");
+        //
+        //Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+        //cipher.init(Cipher.DECRYPT_MODE, this.key);
+        //
+        /*
+        byte [] new_byte;
         //key = new SecretKeySpec(chiave.getBytes(), SYM_ALGORITHM);
-        byte [] new_byte = cipher.doFinal( byte_file );
+        try {
+            new_byte = cipher.doFinal( byte_file );
+        } catch (BadPaddingException e) {
+            System.out.println("BadPaddingException exception.");
+            return false;
+        }
         Path path = Paths.get(this.filePath);
         Files.write(path, new_byte);
-        
-        reader = new Scanner(this.file);
+        */
+
+        reader = new Scanner(newfile);
         String str_verifica = "";
         if (reader.hasNextLine()) {
             str_verifica = reader.nextLine();
@@ -155,10 +185,12 @@ public class FileCrypt {
         else {
             System.out.println("Something went wrong.");
         }
+        System.out.println(str_verifica);
         reader.close();
         if (this.verifica.equals(str_verifica)) return true; //ritorno true se la chiave fornita è corretta e dunque è stata eseguita una decriptazione corretta, in caso contrario ritorno false e si ripeterà il login
 
-        this.file = this.copy_file;
+        //this.file = new File (this.copy_file, this.filePath);
+        //this.file.createNewFile();
         return false;
     }
 }
