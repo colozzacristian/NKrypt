@@ -131,7 +131,7 @@ public class LoginController {
     }
 
     choiceFile.setVisible(true);
-    btnDelete.setVisible(true);
+    //btnDelete.setVisible(true);
     btnPrev.setVisible(true);
     btnEnter.setVisible(true);
     passwdFile.setVisible(true);
@@ -169,6 +169,9 @@ public class LoginController {
     labelProblem1.setVisible(false);
     labelProblem2.setVisible(false);
     labelProblem3.setVisible(false);
+    passwdFile.setText("");
+    passwdFileConfirm.setText("");
+    textName.setText("");
 
     btnLoginFile1.setVisible(true);
     btnNewLogin.setVisible(true);

@@ -8,25 +8,37 @@ public class StringParserCC {
         int var1=0;
         String aux="";
 
-        for (int index = 0; index < response.length(); index++) {
-            char c = response.charAt(index);
-            if(var1==2){
-                if("0123456789.".contains(String.valueOf(c))){
-                    aux+=c;
-                }else{
-                    var1=0;
-                    prices.add(Double.parseDouble(aux));
-                    aux="";
+        System.out.println("response being parsed: "+ response);
+
+        if(response==null){
+            System.out.println("response is null, probable cause: no connection");
+            return prices;
+        }
+        else{
+            System.out.println("parsing");
+            for (int index = 0; index < response.length(); index++) {
+                char character= response.charAt(index);
+                if(var1==2){
+                    if("0123456789.".contains(String.valueOf(character))){
+                        aux+=character;
+                    }else{
+                        var1=0;
+                        prices.add(Double.parseDouble(aux));
+                        aux="";
+                    }
                 }
-            }
-            else{
-                if(c==':'){
+                else{
+                if(character==':'){
                     var1+=1;
                 }
             }
         }
 
         return prices;
+
+        }
+
+        
 
 
     }

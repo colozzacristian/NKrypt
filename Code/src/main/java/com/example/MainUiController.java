@@ -6,6 +6,8 @@
 package com.example;
 
 
+import java.util.Optional;
+
 import com.example.Threads.Caller;
 
 import javafx.collections.FXCollections;
@@ -13,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -28,13 +31,17 @@ public class MainUiController {
      @FXML
     private Label labelMoney;
     @FXML
-    private Button btnCoinAdd;
+    private Label labelConnection;
+    @FXML
+    private Button btnReconnect;
     @FXML
     private Button btnSell;
     @FXML
     private Button btnBuy;
     @FXML
     private Button btnInspect;
+    @FXML
+    private Button btnAddBalance;
 
     @FXML
     private TableView<Crypto> TableviewCrypto;
@@ -59,8 +66,8 @@ public class MainUiController {
 
 
     @FXML
-    public void ciao(){
-        System.out.println("ciao");
+    public void addBalance(){
+        
     }
 
     void setMainModel() {
@@ -73,6 +80,25 @@ public class MainUiController {
 
     public void refreshTable(){
         TableviewCrypto.refresh();
+    }
+
+    public void connected(){
+        btnBuy.setDisable(false);
+        btnSell.setDisable(false);
+        btnReconnect.setVisible(false);
+        labelConnection.setVisible(false);
+    }
+
+    public void noConnection(){
+        btnBuy.setDisable(true);
+        btnSell.setDisable(true);
+        btnReconnect.setVisible(true);
+        labelConnection.setVisible(true);
+    }
+
+    @FXML
+    private void reconnectAttempt(){
+        this.cryptolist.getCall2Action().release();
     }
 
     public CryptoList getCryptolist() {

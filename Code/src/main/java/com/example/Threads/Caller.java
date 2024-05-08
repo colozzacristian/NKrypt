@@ -3,6 +3,7 @@ package com.example.Threads;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
+import java.net.ConnectException;
 import java.net.URI;
 import java.net.http.HttpClient;
 
@@ -12,7 +13,7 @@ import com.example.StringParserCC;
 
 public class Caller extends Thread{
     String baseUrl="https://min-api.cryptocompare.com/data/pricemulti?fsyms=";
-    String append2="&tsyms=EUR&api_key=8834b8ab3a21eac9fb72abab5a86ec3facab20e17a826a1c8cc9338d";
+    String append2="&tsyms=EUR&api_key=8834b8ab09b3a21eac9fb72abab5a866ec3facab20e17a826a";
     CryptoList cryptoList;
     MainUiController main;
     boolean isAlive=true;
@@ -25,25 +26,27 @@ public class Caller extends Thread{
             while(isAlive){
                 
                 cryptoList.getCall2Action().acquire();
-                System.out.println(buildURL());
+                //System.out.println(buildURL());
                 list = new ArrayList<Double>(
-                    StringParserCC.retrieveValues("{\"BTC\":{\"EUR\":57913.01},\"ETH\":{\"EUR\":2794.23}}")
+                    StringParserCC.retrieveValues(request())
                 );
-
-                for (int i = 0; i < list.size(); i++) {
-                    cryptoList.getCryptoList().get(i).setPrice(list.get(i));
-                    
+                if(list!=null){
+                    for (int i = 0; i < list.size(); i++) {
+                        cryptoList.getCryptoList().get(i).setPrice(list.get(i));
+                        
+                    }
+                    main.refreshTable();
                 }
-                main.refreshTable();
-                //request();
-                System.out.println(
-                    list
-                );
+                System.out.println("list contents:" + list);
             }
             
-        } catch (Exception e) {
+        } catch (InterruptedException e) {
             isAlive=false;
+        }catch(Exception e){
+            e.printStackTrace();
         }
+
+        System.out.println("caller has stopped running");
         
     
     }
@@ -67,7 +70,7 @@ public class Caller extends Thread{
         
     }
 
-    private void request(){
+    private String request(){
         HttpRequest request = HttpRequest.newBuilder()
         .uri(URI.create(buildURL()))
         .method("GET", HttpRequest.BodyPublishers.noBody())
@@ -77,13 +80,21 @@ public class Caller extends Thread{
 
         try {
             response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
-        } catch (Exception e) {
+            System.out.println("connected");
+            main.connected();
+            System.out.println("response: "+response.body());
+            return response.body();
+        } catch (ConnectException e) {
+            System.out.println("not connected");
+            main.noConnection();
+        }catch(InterruptedException e){
+            System.out.println("Interrupdted caller");
+            isAlive=false;
+        }catch(Exception e){
+            System.out.println("unknown error during request");
             e.printStackTrace();
         }
-
-        System.out.println(response.body());
-       
-        
+        return null;
     }
 
     public CryptoList getCryptoList() {

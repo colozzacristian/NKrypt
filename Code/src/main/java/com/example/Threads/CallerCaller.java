@@ -17,7 +17,7 @@ public class CallerCaller extends Thread {
 
         try {
             while(isAlive){
-                sleep(120000);
+                sleep(60000);
                 cryptoList.getCall2Action().release();
                 
             }
