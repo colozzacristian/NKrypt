@@ -38,7 +38,7 @@ import javax.crypto.spec.SecretKeySpec;
  */
 public class FileCrypt {
     private static final String SYM_ALGORITHM 	= "AES";
-    private static final Integer SYM_KEY_SIZE 	= 128;
+    private static final Integer SYM_KEY_SIZE 	= 256;
     
     private SecretKey key;
     private String filePath;

@@ -32,6 +32,10 @@ public class MainUiController {
      @FXML
     private Label labelMoney;
     @FXML
+    private Label labelEUR;
+    @FXML
+    private Label labelCrypto;
+    @FXML
     private Label labelAction;
     @FXML
     private Label labelStirato;
@@ -75,7 +79,10 @@ public class MainUiController {
     private TextField txtCoins;
     //__
     private CryptoList cryptolist;
-    Caller caller;
+
+    private Caller caller;
+
+    private int transactionType=0;
 
     
     @FXML
@@ -91,6 +98,8 @@ public class MainUiController {
         labelStirato.setVisible(false);
         labelConnection.setVisible(false);
         btnReconnect.setVisible(false);
+        labelEUR.setVisible(false);
+        labelCrypto.setVisible(false);
         //da attivare prima di consegnare
         //btnBuy.setDisable(true);
         //btnSell.setDisable(true);
@@ -98,7 +107,82 @@ public class MainUiController {
 
 
     @FXML
-    public void addBalance(){
+    public void goBalance(){
+        txtCoins.setVisible(false);
+        txtEuros.setVisible(true);
+        btnBack.setVisible(true);
+        btnTransact.setVisible(true);
+        btnMaxCoin.setVisible(false);
+        btnMaxEur.setVisible(true);
+        labelAction.setVisible(true);
+        labelEUR.setVisible(true);
+        labelCrypto.setVisible(false);
+        TableviewCrypto.setVisible(false);
+        labelAction.setText("Add money ot balance");
+        transactionType=1;
+        
+    }
+
+    @FXML
+    public void goBuy(){
+        txtCoins.setVisible(true);
+        txtEuros.setVisible(true);
+        btnBack.setVisible(true);
+        btnTransact.setVisible(true);
+        btnMaxCoin.setVisible(true);
+        btnMaxEur.setVisible(true);
+        labelAction.setVisible(true);
+        labelEUR.setVisible(true);
+        labelCrypto.setVisible(true);
+        TableviewCrypto.setVisible(false);
+        //mettere quale è il nome della crypto
+        labelAction.setText("Buy crypto");
+        transactionType=2;
+        
+    }
+    @FXML
+    public void goSell(){
+        txtCoins.setVisible(true);
+        txtEuros.setVisible(true);
+        btnBack.setVisible(true);
+        btnTransact.setVisible(true);
+        btnMaxCoin.setVisible(true);
+        btnMaxEur.setVisible(true);
+        labelAction.setVisible(true);
+        labelEUR.setVisible(true);
+        labelCrypto.setVisible(true);
+        TableviewCrypto.setVisible(false);
+        //mettere quale è il nome della crypto
+        labelAction.setText("Sell crypto");
+        transactionType=3;
+        
+    }
+    @FXML
+    public void goBack(){
+        txtCoins.setVisible(false);
+        txtEuros.setVisible(false);
+        btnBack.setVisible(false);
+        btnTransact.setVisible(false);
+        btnMaxCoin.setVisible(false);
+        btnMaxEur.setVisible(false);
+        labelAction.setVisible(false);
+        labelStirato.setVisible(false);
+        labelEUR.setVisible(false);
+        labelCrypto.setVisible(false);
+        TableviewCrypto.setVisible(true);
+        btnTransact.setDisable(false);
+        transactionType=0;
+    }
+    @FXML
+    public void maxEur(){
+        
+    }
+    @FXML
+    public void maxCoins(){
+        
+    }
+    @FXML
+    public void execTransaction(){
         
     }
 
@@ -124,6 +208,10 @@ public class MainUiController {
     public void noConnection(){
         btnBuy.setDisable(true);
         btnSell.setDisable(true);
+        if(transactionType!=1 && transactionType!=0){
+            btnTransact.setDisable(true);
+        }
+        
         btnReconnect.setVisible(true);
         labelConnection.setVisible(true);
     }
