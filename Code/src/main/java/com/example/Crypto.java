@@ -54,5 +54,13 @@ public class Crypto {
     public StringProperty getAssetValue(){
         return new SimpleStringProperty(price*quantity+"");
     }
+
+    @Override
+    public String toString() {
+        return "Crypto [price=" + price + ", quantity=" + quantity + ", nameProperty=" + nameProperty
+                + ", priceProperty=" + priceProperty + ", quantityProperty=" + quantityProperty + "]";
+    }
+
+    
     
 }

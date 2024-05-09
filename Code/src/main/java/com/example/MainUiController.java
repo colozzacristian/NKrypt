@@ -79,15 +79,16 @@ public class MainUiController {
     private TextField txtCoins;
     //__
     private CryptoList cryptolist;
+    private Crypto selected;
 
-    private Caller caller;
+    private boolean isConnected=true;
 
     private int transactionType=0;
 
     
     @FXML
     private void initialize() {
-        //tabellaPersone.getSelectionModel().selectedItemProperty().addListener((observable,oldValue, newValue)-> mostraDettagliPersona(newValue));
+        TableviewCrypto.getSelectionModel().selectedItemProperty().addListener((observable,oldValue, newValue)-> updateSelected(newValue));
         txtCoins.setVisible(false);
         txtEuros.setVisible(false);
         btnBack.setVisible(false);
@@ -100,9 +101,8 @@ public class MainUiController {
         btnReconnect.setVisible(false);
         labelEUR.setVisible(false);
         labelCrypto.setVisible(false);
-        //da attivare prima di consegnare
-        //btnBuy.setDisable(true);
-        //btnSell.setDisable(true);
+        btnBuy.setDisable(true);
+        btnSell.setDisable(true);
     }
 
 
@@ -186,6 +186,16 @@ public class MainUiController {
         
     }
 
+
+    private void updateSelected(Crypto newValue){
+        System.out.println("selected: "+newValue.toString());
+        if(isConnected){
+            btnBuy.setDisable(false);
+            btnSell.setDisable(false);
+        }
+        selected = newValue;
+    }
+
     void setMainModel() {
         TableviewCrypto.setItems(cryptolist.getCryptoList());
         columnName.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
@@ -199,15 +209,21 @@ public class MainUiController {
     }
 
     public void connected(){
-        btnBuy.setDisable(false);
-        btnSell.setDisable(false);
+        isConnected=true;
+        if(selected!=null){
+            btnBuy.setDisable(false);
+            btnSell.setDisable(false);
+        }
         btnReconnect.setVisible(false);
         labelConnection.setVisible(false);
     }
 
     public void noConnection(){
+        isConnected=false;
+
         btnBuy.setDisable(true);
         btnSell.setDisable(true);
+
         if(transactionType!=1 && transactionType!=0){
             btnTransact.setDisable(true);
         }
@@ -218,6 +234,7 @@ public class MainUiController {
 
     @FXML
     private void reconnectAttempt(){
+        System.out.println("User forced reconnection");
         this.cryptolist.getCall2Action().release();
     }
 
