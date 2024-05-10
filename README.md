@@ -1,5 +1,6 @@
 # NKrypt
-NKrypt simulate a crypto wallet, no real money is involved.
+
+NKrypt simulates a crypto wallet, no real money is involved.
 
 You can test out your investment skills safely using this app!
 
@@ -71,6 +72,12 @@ Some future updates will include:
 
 ## Final considerations
 NKrypt is an innovative Educative application that can introduce people to cryptocurrency and learn without exposing them to the risk of loosing their money. 
+
+Once the log in is complited you'll be welcomed by a table containing various crypto currencies, you can click on the to enable actions such as:
+- buying
+- selling
+we might add more features.
+
 
 Please keep in mind that all of this was made using free (as in cost) tools.
 We were also limited to what, our API provider and other free tools avaiable, lets us do.
