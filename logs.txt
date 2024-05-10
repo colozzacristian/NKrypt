@@ -1,0 +1,23 @@
+10/05/2024 22:01:36 : Prints redirected
+10/05/2024 22:01:36 : File already exists.
+10/05/2024 22:02:00 : new Cryptolist
+10/05/2024 22:02:00 : Succeded in creating the new file: d.ncrypt.
+10/05/2024 22:02:00 : MainUi initialited
+----------------------------------------------------------------------------
+note that if your connection is slow you will encounter quite some problems
+----------------------------------------------------------------------------
+10/05/2024 22:02:00 : Starting the thread caller
+10/05/2024 22:02:00 : Starting the thread callercaller
+10/05/2024 22:02:00 : starting 1 minut timer
+10/05/2024 22:02:00 : View succesfully switched to mainUi
+10/05/2024 22:02:05 : Application has been prompted to close.
+10/05/2024 22:02:06 : tmp file alredy exists.
+10/05/2024 22:02:06 : Succeded in decrypting the file
+10/05/2024 22:02:06 : Succeded in creating the new file: d.ncrypt.
+10/05/2024 22:02:06 : Il file è stato copiato con successo nel nuovo percorso.
+10/05/2024 22:02:06 : pippo
+10/05/2024 22:02:06 : CallerCaller has stopped running
+10/05/2024 22:02:06 : Interrupdted caller
+10/05/2024 22:02:06 : response is null, probable cause: no connection
+10/05/2024 22:02:06 : list contents:[]
+10/05/2024 22:02:06 : caller has stopped running

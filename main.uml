@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>/home/cristian/Coding/Projects/NCrypt/Code/src/main</OriginalElement>
+  <nodes>
+    <node x="744.5" y="322.5">com.example.FileCrypt</node>
+    <node x="271.98046875" y="1206.5820312499995">com.example.Threads.CallerCaller</node>
+    <node x="744.5" y="716.8984375">com.example.Crypto</node>
+    <node x="-499.98046875" y="298.5">com.example.MainUiController</node>
+    <node x="-93.0" y="1071.1484375">com.example.StringParserCC</node>
+    <node x="1070.96875" y="353.03515625000045">com.example.App</node>
+    <node x="-89.5" y="706.5">com.example.CryptoList</node>
+    <node x="295.5" y="298.5">com.example.LoginController</node>
+    <node x="-89.5" y="298.5">com.example.Threads.Caller</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic Compact" zoom="0.6400000000000001" showDependencies="false" x="518.9999999999998" y="843.7187499999999" />
+  <SelectedNodes>
+    <node>com.example.App</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
