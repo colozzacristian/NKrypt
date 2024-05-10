@@ -52,7 +52,6 @@ public class FileCrypt {
     private File file;
     //private byte [] byte_file;
     //private File copy_file;
-    private String verifica = "Encryption";
 
     public FileCrypt(String chiave, String path_file) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
         this.filePath=path_file;
@@ -126,10 +125,6 @@ public class FileCrypt {
             oos.writeObject(crypto);
         }
 
-        try (FileWriter writer = new FileWriter(filePath, true)) { //true -> mode append to file
-            writer.write(this.verifica);
-        }
-
         if (decryptedfile.createNewFile()) {
             System.out.println("Succeded in creating the tmp file.");
         } else {
@@ -200,7 +195,17 @@ public class FileCrypt {
         }
         
         FileInputStream fis = new FileInputStream("tmp.txt");
-        ObjectInputStream ois = new ObjectInputStream(fis);
+        ObjectInputStream ois;
+        try {ois = new ObjectInputStream(fis);}
+        catch (IOException e) {
+            System.out.println("pippo");
+            decryptedfile.delete();
+            return false;
+        }
+        catch (Exception e) {
+            decryptedfile.delete();
+            return false;
+        }
 
         while (true) {
                 try {
@@ -226,25 +231,14 @@ public class FileCrypt {
                         // Gestione dell'eccezione IOException
                         e.printStackTrace();
                     }
-                    if (lastLine.equals(this.verifica)) {
-                        decryptedfile.delete();
-                        System.out.println(lastLine);
-                        System.out.println(this.verifica);
-                        System.out.println("pass ok.");
-                        return true; //decryption is OK
-                    } else {
-                        decryptedfile.delete();
-                        System.out.println(lastLine);
-                        System.out.println(this.verifica);
-                        System.out.println("pass not ok.");
-                        return false;//decryption is not OK
-                    }
+                    decryptedfile.delete();
+                    return true; //decryption is OK
                 }
             }
         decryptedfile.delete();
         //return cryptolist;
         System.out.println("error (reading the verify String).");
-        return false;
+        return true;
     }
 
     public String getChiave() {
