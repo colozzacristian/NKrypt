@@ -6,6 +6,7 @@
 package com.example;
 
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import com.example.Threads.Caller;
@@ -178,61 +179,66 @@ public class MainUiController {
     }
     @FXML
     public void maxEur(){
-        txtEuros.setText(String.valueOf(cryptolist.getBalance()));
+        txtEuros.setText(new BigDecimal(cryptolist.getBalance()).toPlainString());
         txtCoins.setText(
-                String.valueOf(
+            new BigDecimal(
                     Double.parseDouble(txtEuros.getText())/selected.getPrice()
-                    )
+                    ).toPlainString()
             );
         
     }
 
     @FXML
     public void maxCoin(){
-        txtCoins.setText(String.valueOf(selected.getQuantity()));
+        txtCoins.setText(new BigDecimal(selected.getQuantity()).toPlainString());
         txtEuros.setText(
-                String.valueOf(
+            new BigDecimal(
                     selected.getQuantity()*selected.getPrice()
-                    )
+                    ).toPlainString()
             );
         
     }
 
     @FXML
     private void syncToCoins(){
-        String aux = StringParserCC.toNum(txtEuros.getText());
-        if(aux==null || aux==""){
+        txtEuros.setText(StringParserCC.toNum(txtEuros.getText()));
+        if(txtEuros.getText()==null || txtEuros.getText()==""){
             System.out.println("no string when syncing to Coins");
             return;
         }
         
-        
+        System.out.println("tt: "+transactionType);
         if(transactionType!=1){
-            if(Double.parseDouble(aux) > cryptolist.getBalance()){
-                aux = String.valueOf(cryptolist.getBalance());
+            if(Double.parseDouble(txtEuros.getText()) > cryptolist.getBalance()){
+                txtEuros.setText(String.valueOf(cryptolist.getBalance()));
             }
-            txtEuros.setText(aux);
+            txtEuros.setText(txtEuros.getText());
             txtCoins.setText(
-                String.valueOf(
-                    Double.parseDouble(aux)/selected.getPrice()
-                    )
+                new BigDecimal(
+                    Double.parseDouble(txtEuros.getText())/selected.getPrice()
+                    ).toPlainString()
+                
             );
+            if(transactionType==3){syncToEur();}
         }
     }
 
     @FXML
     private void syncToEur(){
+        txtCoins.setText(StringParserCC.toNum(txtCoins.getText()));
         if(txtCoins.getText()==null || txtCoins.getText()==""){
             System.out.println("no string when syncinc to Eur");
             return;
         }
-        txtCoins.setText(StringParserCC.toNum(txtCoins.getText()));
         if(transactionType!=1){
             txtEuros.setText(
-                String.valueOf(
+                new BigDecimal(
                     Double.parseDouble(txtCoins.getText())*selected.getPrice()
-                    )
+                    ).toPlainString()
             );
+            if(transactionType==2){
+                syncToCoins();
+            }
         }
     }
 
@@ -268,6 +274,7 @@ public class MainUiController {
             default:
                 break;
         }
+        this.refreshTable();
         labelMoney.setText("€"+String.valueOf(cryptolist.getBalance()
                     ));
                     System.out.println("new balance: "+cryptolist.getBalance());

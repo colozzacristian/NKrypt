@@ -41,26 +41,27 @@ public class StringParserCC {
 
 
     public static String toNum(String text){
-        System.out.println("Correcting output: "+text);
+        System.out.println("Correcting input: "+text);
         String aux="";
         boolean start=false;
-        boolean floated=false;
+        boolean Doubleed=false;
+
         for (int index = 0; index < text.length(); index++) {
             char character= text.charAt(index);
-                if(character==',' && start && !floated){
-                    floated=true;
+                if(character==',' && start && !Doubleed){
+                    Doubleed=true;
                     aux+='.';
                 }else if("0123456789".contains(String.valueOf(character))){
                     aux+=character;
                     start=true;
-                }else if(character=='.' && start && !floated){
+                }else if(character=='.' && start && !Doubleed){
                     aux+=character;
-                    floated=true;
+                    Doubleed=true;
                 }
        
 
     }
-    System.out.println(aux);
+    System.out.println("Corrected: "+aux);
     return aux;
 }
 

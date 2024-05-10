@@ -20,15 +20,15 @@ public class CryptoList {
     private Double balance;
 
     public CryptoList() {
-        cryptos.add(new Crypto("btc", 0, 0));
-        cryptos.add(new Crypto("eth", 0, 0));
-        cryptos.add(new Crypto("sol", 0, 0));
-        cryptos.add(new Crypto("etc", 0, 0));
-        cryptos.add(new Crypto("usdt", 0, 0));
-        cryptos.add(new Crypto("usdc", 0, 0));
-        cryptos.add(new Crypto("doge", 0, 0));
-        cryptos.add(new Crypto("shib", 0, 0));
-        cryptos.add(new Crypto("pepe", 0, 0));
+        cryptos.add(new Crypto("btc", 0.0, 0.0));
+        cryptos.add(new Crypto("eth", 0.0, 0.0));
+        cryptos.add(new Crypto("sol", 0.0, 0.0));
+        cryptos.add(new Crypto("etc", 0.0, 0.0));
+        cryptos.add(new Crypto("usdt", 0.0, 0.0));
+        cryptos.add(new Crypto("usdc", 0.0, 0.0));
+        cryptos.add(new Crypto("doge", 0.0, 0.0));
+        cryptos.add(new Crypto("shib", 0.0, 0.0));
+        cryptos.add(new Crypto("pepe", 0.0, 0.0));
         balance=50.0;
 
     }

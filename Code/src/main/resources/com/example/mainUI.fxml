@@ -33,7 +33,7 @@
                   <Image url="@Images/NKript.png" />
                </image>
             </ImageView>
-            <Label fx:id="labelMoney" alignment="CENTER_RIGHT" ellipsisString="ToMuch" prefHeight="50.0" prefWidth="141.0" stylesheets="@Style/style.css" text="€ 50" textAlignment="RIGHT" textOverrun="WORD_ELLIPSIS" wrapText="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+            <Label fx:id="labelMoney" alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="196.0" stylesheets="@Style/style.css" text="€ 50" textAlignment="RIGHT" wrapText="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
