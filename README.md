@@ -20,6 +20,7 @@ To create a new login, you need to choose:
 The user interface is simple and intuitive; we want to involve all several different users.
 
 ## Login
+![GIF](https://raw.githubusercontent.com/colozzacristian/NCrypt/main/image00001.gif)
 You can login into your account by doing this 2 steps:
 - ***select your username from the list***
 - ***insert the password***
@@ -35,11 +36,13 @@ You can select anyone of them to enable some actions such as:
 On the top right of the screen you'll find your account balance, you can add money at any time if you need to!
 
 ## Add Balance
+![GIF](https://raw.githubusercontent.com/colozzacristian/NCrypt/main/image00004.gif)
 As previously said, you can add balance into your account by clicking the dedicated button on the top right of the screen.
 
 Once done, you can add balance into your account by typing the desired amount to add and clicking the "execute transaction" botton.
 
 ## Buy a Cryptocurrency
+![GIF](https://raw.githubusercontent.com/colozzacristian/NCrypt/main/image00005.gif)
 You can buy cryptocurrency whenever you want on NKrypt by just selecting it and click on the "buy selected" button on the bottom right corner of the screen.
 
 Once clicked, a menu appears.
@@ -50,6 +53,7 @@ you will see the equivalent amount, in Crypto, under the digited amount.***
 
 
 ## Sell a Cryptocurrency
+![GIF](https://raw.githubusercontent.com/colozzacristian/NCrypt/main/image00002.gif)
 Why you want to sell your cryptocurrency...
 
 But let's not quibble, whenever you want to sell a cryptocurrency on NKrypt, you can do it by just selecting it and click on the "sell selected" button on the bottom right corner of the screen.
