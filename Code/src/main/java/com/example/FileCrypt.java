@@ -43,8 +43,6 @@ import javax.crypto.spec.SecretKeySpec;
  * @author User
  */
 public class FileCrypt {
-    private static final String SYM_ALGORITHM 	= "AES";
-    private static final Integer SYM_KEY_SIZE 	= 256;
     
     //private SecretKey key;
     private String chiave;
@@ -63,32 +61,6 @@ public class FileCrypt {
             System.out.println("File " + filePath + " alredy exist!");
         }
         this.chiave=chiave;
-    }
-
-
-    public void pero() throws IOException {
-        String key = "your_key_here"; // Chiave per l'XOR
-        File inputFile = new File("peppopippo.txt"); // File di input
-        File encryptedFile = new File("pippofinalpleasepippo.txt"); // File cifrato
-        encryptedFile.createNewFile();
-
-        try {
-            encryptFile(inputFile, encryptedFile, key);
-            System.out.println("File cifrato con successo.");
-        } catch (IOException e) {
-            System.out.println("Si è verificato un errore durante la cifratura del file: " + e.getMessage());
-        }
-
-        if (inputFile.exists()) {
-            // Prova a cancellare il file
-            if (inputFile.delete()) {
-                System.out.println("Il file è stato cancellato con successo.");
-            } else {
-                System.out.println("Impossibile cancellare il file.");
-            }
-        } else {
-            System.out.println("Il file non esiste.");
-        }
     }
 
     // Metodo per cifrare il file utilizzando l'XOR con la chiave
@@ -124,6 +96,7 @@ public class FileCrypt {
         for (Crypto crypto : cryptolist.getCryptoList()) {
             oos.writeObject(crypto);
         }
+        oos.writeObject(cryptolist.getBalance_c());
 
         if (decryptedfile.createNewFile()) {
             System.out.println("Succeded in creating the tmp file.");
@@ -198,7 +171,7 @@ public class FileCrypt {
         ObjectInputStream ois;
         try {ois = new ObjectInputStream(fis);}
         catch (IOException e) {
-            System.out.println("pippo");
+            System.out.println("passwd error.");
             decryptedfile.delete();
             return false;
         }
@@ -208,36 +181,23 @@ public class FileCrypt {
         }
 
         while (true) {
-                try {
-                    System.out.println("yoin");
-                    cryptolist.getCryptoList().add(new Crypto((Crypto) ois.readObject()));
-                    //System.out.println("yoin");
-                }
-                catch (EOFException e) {
-                    // All file readed
-                    System.out.println("pera");
-                    break;
-                }
-                catch (Exception ex) {
-                    System.out.println("entra?");
-                    String currentLine;
-                    String lastLine="";
-                    try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-                        while ((currentLine = reader.readLine()) != null) {
-                            lastLine = currentLine;
-                        }
-                    }
-                    catch (IOException e) {
-                        // Gestione dell'eccezione IOException
-                        e.printStackTrace();
-                    }
-                    decryptedfile.delete();
-                    return true; //decryption is OK
-                }
+            try {
+                System.out.println("writing crypto...");
+                cryptolist.getCryptoList().add(new Crypto((Crypto) ois.readObject()));
+                //System.out.println("yoin");
             }
+            catch (EOFException e) {
+                // All file readed
+                System.out.println("File readed (finished readData).");
+                break;
+            }
+            catch (Exception ex) {
+                System.out.println("w");
+                cryptolist.setBalance_c(new Balance ((Balance) ois.readObject()) );
+            }
+        }
         decryptedfile.delete();
         //return cryptolist;
-        System.out.println("error (reading the verify String).");
         return true;
     }
 

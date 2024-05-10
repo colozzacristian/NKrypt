@@ -1,39 +1,23 @@
-10/05/2024 22:57:18 : Prints redirected
-10/05/2024 22:57:18 : File already exists.
-10/05/2024 22:57:22 : new Cryptolist
-10/05/2024 22:57:22 : File ciao.ncrypt alredy exist!
-10/05/2024 22:57:22 : tmp file alredy exists.
-10/05/2024 22:57:22 : Succeded in decrypting the file
-10/05/2024 22:57:22 : yoin
-10/05/2024 22:57:22 : yoin
-10/05/2024 22:57:22 : yoin
-10/05/2024 22:57:22 : yoin
-10/05/2024 22:57:22 : yoin
-10/05/2024 22:57:22 : yoin
-10/05/2024 22:57:22 : yoin
-10/05/2024 22:57:22 : yoin
-10/05/2024 22:57:22 : yoin
-10/05/2024 22:57:22 : yoin
-10/05/2024 22:57:22 : pera
-10/05/2024 22:57:22 : error (reading the verify String).
-10/05/2024 22:57:22 : MainUi initialited
+10/05/2024 23:29:09 : Prints redirected
+10/05/2024 23:29:09 : File already exists.
+10/05/2024 23:29:21 : new Cryptolist
+10/05/2024 23:29:21 : Succeded in creating the new file: tet.ncrypt.
+10/05/2024 23:29:21 : MainUi initialited
 ----------------------------------------------------------------------------
 note that if your connection is slow you will encounter quite some problems
 ----------------------------------------------------------------------------
-10/05/2024 22:57:23 : Starting the thread caller
-10/05/2024 22:57:23 : Starting the thread callercaller
-10/05/2024 22:57:23 : starting 1 minut timer
-10/05/2024 22:57:23 : View succesfully switched to mainUi
-10/05/2024 22:57:23 : connected
-10/05/2024 22:57:23 : response: {"BTC":{"EUR":56194.6},"ETH":{"EUR":2685.58},"SOL":{"EUR":135.71},"ETC":{"EUR":24.47},"USDT":{"EUR":0.929},"USDC":{"EUR":0.9293},"DOGE":{"EUR":0.1332},"SHIB":{"EUR":0.00002079},"PEPE":{"EUR":0.00000773}}
-10/05/2024 22:57:23 : parsing
-10/05/2024 22:57:23 : list contents:[56194.6, 2685.58, 135.71, 24.47, 0.929, 0.9293, 0.1332, 2.079E-5, 7.73E-6]
-10/05/2024 22:57:25 : selected: Crypto [price=56194.6, quantity=0.018686106861751994, nameProperty=StringProperty [value: btc], priceProperty=StringProperty [value: 56194.6], quantityProperty=StringProperty [value: 0.018686106861751994]]
-10/05/2024 22:57:27 : Application has been prompted to close.
-10/05/2024 22:57:28 : Succeded in creating the tmp file.
-10/05/2024 22:57:28 : Succeded in decrypting the file
-10/05/2024 22:57:28 : Succeded in creating the new file: ciao.ncrypt.
-10/05/2024 22:57:28 : Il file è stato copiato con successo nel nuovo percorso.
-10/05/2024 22:57:28 : pippo
-10/05/2024 22:57:28 : CallerCaller has stopped running
-10/05/2024 22:57:28 : caller has stopped running
+10/05/2024 23:29:21 : Starting the thread caller
+10/05/2024 23:29:21 : Starting the thread callercaller
+10/05/2024 23:29:21 : starting 1 minut timer
+10/05/2024 23:29:21 : View succesfully switched to mainUi
+10/05/2024 23:29:21 : connected
+10/05/2024 23:29:21 : response: {"BTC":{"EUR":56275.87},"ETH":{"EUR":2691.4},"SOL":{"EUR":136.26},"ETC":{"EUR":24.52},"USDT":{"EUR":0.9291},"USDC":{"EUR":0.9293},"DOGE":{"EUR":0.1336},"SHIB":{"EUR":0.00002084},"PEPE":{"EUR":0.00000773}}
+10/05/2024 23:29:21 : parsing
+10/05/2024 23:29:21 : list contents:[56275.87, 2691.4, 136.26, 24.52, 0.9291, 0.9293, 0.1336, 2.084E-5, 7.73E-6]
+10/05/2024 23:30:21 : timer expired. Refreshing values
+10/05/2024 23:30:21 : starting 1 minut timer
+10/05/2024 23:30:21 : connected
+10/05/2024 23:30:21 : response: {"BTC":{"EUR":56274.72},"ETH":{"EUR":2691.08},"SOL":{"EUR":136.21},"ETC":{"EUR":24.52},"USDT":{"EUR":0.9292},"USDC":{"EUR":0.9293},"DOGE":{"EUR":0.1335},"SHIB":{"EUR":0.00002084},"PEPE":{"EUR":0.00000772}}
+10/05/2024 23:30:21 : parsing
+10/05/2024 23:30:21 : list contents:[56274.72, 2691.08, 136.21, 24.52, 0.9292, 0.9293, 0.1335, 2.084E-5, 7.72E-6]
+10/05/2024 23:30:47 : Application has been prompted to close.
