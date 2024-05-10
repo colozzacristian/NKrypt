@@ -13,7 +13,7 @@ import com.example.StringParserCC;
 
 public class Caller extends Thread{
     String baseUrl="https://min-api.cryptocompare.com/data/pricemulti?fsyms=";
-    String append2="&tsyms=EUR&api_key=ciao";
+    String append2="&tsyms=EUR&api_key=8834b8ab09b3a21eac9fb72abab5a866ec3facab20e17a826a1c8d004cc9338d";
     CryptoList cryptoList;
     MainUiController main;
     boolean isAlive=true;

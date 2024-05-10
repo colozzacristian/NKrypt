@@ -37,9 +37,31 @@ public class StringParserCC {
         return prices;
 
         }
+    }
 
-        
 
+    public static String toNum(String text){
+        System.out.println("Correcting output: "+text);
+        String aux="";
+        boolean start=false;
+        boolean floated=false;
+        for (int index = 0; index < text.length(); index++) {
+            char character= text.charAt(index);
+                if(character==',' && start && !floated){
+                    floated=true;
+                    aux+='.';
+                }else if("0123456789".contains(String.valueOf(character))){
+                    aux+=character;
+                    start=true;
+                }else if(character=='.' && start && !floated){
+                    aux+=character;
+                    floated=true;
+                }
+       
 
     }
+    System.out.println(aux);
+    return aux;
+}
+
 }

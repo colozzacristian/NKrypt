@@ -38,8 +38,6 @@ public class MainUiController {
     @FXML
     private Label labelAction;
     @FXML
-    private Label labelStirato;
-    @FXML
     private Label labelConnection;
     @FXML
     private Button btnReconnect;
@@ -50,9 +48,9 @@ public class MainUiController {
     @FXML
     private Button btnTransact;
     @FXML
-    private Button btnMaxCoin;
-    @FXML
     private Button btnMaxEur;
+    @FXML
+    private Button btnMaxCoin;
 
     @FXML
     private Button btnInspect;
@@ -81,7 +79,7 @@ public class MainUiController {
     private CryptoList cryptolist;
     private Crypto selected;
 
-    private boolean isConnected=true;
+    private boolean isConnected=false;
 
     private int transactionType=0;
 
@@ -93,16 +91,15 @@ public class MainUiController {
         txtEuros.setVisible(false);
         btnBack.setVisible(false);
         btnTransact.setVisible(false);
-        btnMaxCoin.setVisible(false);
         btnMaxEur.setVisible(false);
         labelAction.setVisible(false);
-        labelStirato.setVisible(false);
         labelConnection.setVisible(false);
         btnReconnect.setVisible(false);
         labelEUR.setVisible(false);
         labelCrypto.setVisible(false);
         btnBuy.setDisable(true);
         btnSell.setDisable(true);
+        btnMaxCoin.setVisible(false);
     }
 
 
@@ -112,32 +109,35 @@ public class MainUiController {
         txtEuros.setVisible(true);
         btnBack.setVisible(true);
         btnTransact.setVisible(true);
-        btnMaxCoin.setVisible(false);
-        btnMaxEur.setVisible(true);
+        //btnMaxEur.setVisible(true);
         labelAction.setVisible(true);
         labelEUR.setVisible(true);
         labelCrypto.setVisible(false);
         TableviewCrypto.setVisible(false);
         labelAction.setText("Add money ot balance");
         transactionType=1;
+        txtCoins.setText("");
+        txtEuros.setText("");
         
     }
 
     @FXML
     public void goBuy(){
+        btnMaxCoin.setVisible(false);
         txtCoins.setVisible(true);
         txtEuros.setVisible(true);
         btnBack.setVisible(true);
         btnTransact.setVisible(true);
-        btnMaxCoin.setVisible(true);
         btnMaxEur.setVisible(true);
         labelAction.setVisible(true);
         labelEUR.setVisible(true);
         labelCrypto.setVisible(true);
         TableviewCrypto.setVisible(false);
         //mettere quale è il nome della crypto
-        labelAction.setText("Buy crypto");
+        labelAction.setText("Buying "+selected.getName());
         transactionType=2;
+        txtCoins.setText("");
+        txtEuros.setText("");
         
     }
     @FXML
@@ -147,14 +147,16 @@ public class MainUiController {
         btnBack.setVisible(true);
         btnTransact.setVisible(true);
         btnMaxCoin.setVisible(true);
-        btnMaxEur.setVisible(true);
         labelAction.setVisible(true);
         labelEUR.setVisible(true);
         labelCrypto.setVisible(true);
         TableviewCrypto.setVisible(false);
+        btnMaxEur.setVisible(false);
         //mettere quale è il nome della crypto
-        labelAction.setText("Sell crypto");
+        labelAction.setText("Selling "+selected.getName());
         transactionType=3;
+        txtCoins.setText("");
+        txtEuros.setText("");
         
     }
     @FXML
@@ -163,27 +165,113 @@ public class MainUiController {
         txtEuros.setVisible(false);
         btnBack.setVisible(false);
         btnTransact.setVisible(false);
-        btnMaxCoin.setVisible(false);
         btnMaxEur.setVisible(false);
+        btnMaxCoin.setVisible(false);
         labelAction.setVisible(false);
-        labelStirato.setVisible(false);
         labelEUR.setVisible(false);
         labelCrypto.setVisible(false);
         TableviewCrypto.setVisible(true);
         btnTransact.setDisable(false);
         transactionType=0;
+        txtCoins.setText("");
+        txtEuros.setText("");
     }
     @FXML
     public void maxEur(){
+        txtEuros.setText(String.valueOf(cryptolist.getBalance()));
+        txtCoins.setText(
+                String.valueOf(
+                    Double.parseDouble(txtEuros.getText())/selected.getPrice()
+                    )
+            );
         
     }
+
     @FXML
-    public void maxCoins(){
+    public void maxCoin(){
+        txtCoins.setText(String.valueOf(selected.getQuantity()));
+        txtEuros.setText(
+                String.valueOf(
+                    selected.getQuantity()*selected.getPrice()
+                    )
+            );
         
     }
+
+    @FXML
+    private void syncToCoins(){
+        String aux = StringParserCC.toNum(txtEuros.getText());
+        if(aux==null || aux==""){
+            System.out.println("no string when syncing to Coins");
+            return;
+        }
+        
+        
+        if(transactionType!=1){
+            if(Double.parseDouble(aux) > cryptolist.getBalance()){
+                aux = String.valueOf(cryptolist.getBalance());
+            }
+            txtEuros.setText(aux);
+            txtCoins.setText(
+                String.valueOf(
+                    Double.parseDouble(aux)/selected.getPrice()
+                    )
+            );
+        }
+    }
+
+    @FXML
+    private void syncToEur(){
+        if(txtCoins.getText()==null || txtCoins.getText()==""){
+            System.out.println("no string when syncinc to Eur");
+            return;
+        }
+        txtCoins.setText(StringParserCC.toNum(txtCoins.getText()));
+        if(transactionType!=1){
+            txtEuros.setText(
+                String.valueOf(
+                    Double.parseDouble(txtCoins.getText())*selected.getPrice()
+                    )
+            );
+        }
+    }
+
     @FXML
     public void execTransaction(){
+        String eur=txtEuros.getText();
+        String crypt=txtCoins.getText();
+        switch (transactionType) {
+            case 1:
+                System.out.println("adding balance");
+                cryptolist.setBalance(cryptolist.getBalance()+Double.parseDouble(txtEuros.getText()));
+                
+                
+                break;
+            case 2:
+                System.out.println("Buying");
+                syncToCoins();
+                cryptolist.getCall2Action().release();
+                selected.setQuantity(selected.getQuantity()+(Double.parseDouble(txtEuros.getText()) /selected.getPrice()));
+                System.out.println("new owned value: "+ selected.getQuantity());
+                cryptolist.setBalance(cryptolist.getBalance()-Double.parseDouble(txtEuros.getText()));                
+                break;
+            case 3:
+                System.out.println("Selling");
+                syncToEur();
+                cryptolist.getCall2Action().release();
+                
+                selected.setQuantity(selected.getQuantity()-Double.parseDouble(txtCoins.getText()));
+                System.out.println("new owned value: "+ selected.getQuantity());
+                cryptolist.setBalance(cryptolist.getBalance()+Double.parseDouble(txtCoins.getText())*selected.getPrice());             
+                break;
         
+            default:
+                break;
+        }
+        labelMoney.setText("€"+String.valueOf(cryptolist.getBalance()
+                    ));
+                    System.out.println("new balance: "+cryptolist.getBalance());
+        goBack();
     }
 
 
@@ -236,6 +324,7 @@ public class MainUiController {
     private void reconnectAttempt(){
         System.out.println("User forced reconnection");
         this.cryptolist.getCall2Action().release();
+       
     }
 
     public CryptoList getCryptolist() {

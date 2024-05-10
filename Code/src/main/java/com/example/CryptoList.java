@@ -17,6 +17,7 @@ public class CryptoList {
 
     private Semaphore call2Action = new Semaphore(1);
     private ObservableList<Crypto> cryptos = FXCollections.observableArrayList(); 
+    private Double balance;
 
     public CryptoList() {
         cryptos.add(new Crypto("btc", 0, 0));
@@ -28,6 +29,7 @@ public class CryptoList {
         cryptos.add(new Crypto("doge", 0, 0));
         cryptos.add(new Crypto("shib", 0, 0));
         cryptos.add(new Crypto("pepe", 0, 0));
+        balance=50.0;
 
     }
     
@@ -42,6 +44,16 @@ public class CryptoList {
     public void setCall2Action(Semaphore call2Action) {
         this.call2Action = call2Action;
     }
+
+    public Double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Double balance) {
+        this.balance = balance;
+    }
+
+    
     
     
     
