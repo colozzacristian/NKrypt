@@ -5,13 +5,13 @@ import javafx.beans.property.StringProperty;
 
 public class Crypto {
 
-    private double price;
-    private double quantity;
+    private Double price;
+    private Double quantity;
     private StringProperty nameProperty;
     private StringProperty priceProperty;
     private StringProperty quantityProperty;
 
-    public Crypto(String name, double price, double quantity) {
+    public Crypto(String name, Double price, Double quantity) {
         this.setPrice(price);
         this.quantity = quantity;
         this.nameProperty = new SimpleStringProperty(name);
@@ -34,21 +34,22 @@ public class Crypto {
         return quantityProperty;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
         this.priceProperty= new SimpleStringProperty(price+"");
     }
 
-    public double getQuantity() {
+    public Double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(double quantity) {
+    public void setQuantity(Double quantity) {
         this.quantity = quantity;
+        this.quantityProperty= new SimpleStringProperty(quantity+"");
     }
 
     public StringProperty getAssetValue(){

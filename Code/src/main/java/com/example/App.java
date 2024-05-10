@@ -9,10 +9,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Optional;
 
 import javax.crypto.NoSuchPaddingException;
@@ -65,7 +71,6 @@ public class App extends Application {
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
-            //L'operatore :: si può utilizzare per fare chiamate di metodi di oggetti (si utilizza 
             primaryStage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::closeWindowEvent);
         } catch (IOException e) {
             e.printStackTrace();
@@ -74,6 +79,7 @@ public class App extends Application {
     }
 
     private void closeWindowEvent(WindowEvent event) {
+        System.out.println("Application has been prompted to close.");
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.getButtonTypes().remove(ButtonType.OK);
@@ -133,20 +139,23 @@ public class App extends Application {
             }else{
                 //leggi da file
             }
+            System.out.println("Starting the thread caller");
             caller.start();
             caller.setMain(mainController);
             caller.setCryptoList(cl);
+            System.out.println("Starting the thread callercaller");
             cc.start();
             cc.setCryptoList(cl);
-            
             mainController.setCryptolist(cl);
             mainController.setMainModel();
+            System.out.println("View succesfully switched to mainUi");
+
             primaryStage.show();
         
             //L'operatore :: si può utilizzare per fare chiamate di metodi di oggetti (si utilizza 
             //primaryStage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::closeWindowEvent);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Fatal error while switching");
         }
         
     }
@@ -161,7 +170,27 @@ public class App extends Application {
         return fxmlLoader.load();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
+        
+        PrintStream logStream = new PrintStream(new File("logs.txt")){
+            @Override
+            public void println(String x) {
+                super.println( new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Calendar.getInstance().getTime()) + " : " + x);
+            }
+        };
+ 
+        // Store current System.out
+        // before assigning a new value
+        PrintStream console = System.out;
+ 
+        // Assign o to output stream
+        // using setOut() method
+        System.setOut(logStream);
+ 
+        // Display message only
+        System.out.println(
+            "Prints redirected");
+
         launch(args);
     }
 
