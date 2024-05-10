@@ -2,7 +2,7 @@ package com.example;
 
 import java.util.ArrayList;
 
-public class StringParserCC {
+public abstract class StringParserCC {
     public static ArrayList<Double> retrieveValues(String response){
         ArrayList<Double> prices = new ArrayList<Double>();
         int var1=0;
