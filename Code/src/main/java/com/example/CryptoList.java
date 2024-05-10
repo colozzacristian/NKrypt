@@ -56,6 +56,7 @@ public class CryptoList {
 
     public void setBalance(Double balance) {
         this.balance = balance;
+        this.balance_c.setBalance(balance);
     }
 
     public void setBalance_c(Balance balance) {

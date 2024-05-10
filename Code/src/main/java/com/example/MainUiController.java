@@ -322,6 +322,7 @@ public class MainUiController {
         columnPrice.setCellValueFactory(cellData -> cellData.getValue().getPriceProperty());
         columnQuantity.setCellValueFactory(cellData -> cellData.getValue().getQuantityProperty());
         columnTotalValue.setCellValueFactory(cellData -> cellData.getValue().getAssetValue());
+        labelMoney.setText("€"+getCryptolist().getBalance());
     }
 
     public void refreshTable(){

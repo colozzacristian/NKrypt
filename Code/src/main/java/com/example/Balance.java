@@ -1,6 +1,8 @@
 package com.example;
 
-public class Balance {
+import java.io.Serializable;
+
+public class Balance implements Serializable {
 
     private Double balance;
 
@@ -12,8 +14,13 @@ public class Balance {
         this.balance=balance.getBalance();
     }
 
+    
     public Double getBalance() {
         return balance;
+    }
+
+    public void setBalance(Double balance) {
+        this.balance = balance;
     }
 
     

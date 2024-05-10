@@ -179,11 +179,12 @@ public class FileCrypt {
             decryptedfile.delete();
             return false;
         }
-
+        Object obj = new Object();
         while (true) {
             try {
                 System.out.println("writing crypto...");
-                cryptolist.getCryptoList().add(new Crypto((Crypto) ois.readObject()));
+                obj = ois.readObject();
+                cryptolist.getCryptoList().add(new Crypto((Crypto) obj));
                 //System.out.println("yoin");
             }
             catch (EOFException e) {
@@ -193,7 +194,9 @@ public class FileCrypt {
             }
             catch (Exception ex) {
                 System.out.println("w");
-                cryptolist.setBalance_c(new Balance ((Balance) ois.readObject()) );
+                cryptolist.setBalance_c(new Balance ((Balance) obj) );
+                System.out.println(cryptolist.getBalance_c().getBalance());
+                System.out.println(cryptolist.getBalance());
             }
         }
         decryptedfile.delete();
