@@ -91,7 +91,7 @@
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor></TextField>
-      <Button fx:id="btnTransact" layoutX="121.0" layoutY="237.0" mnemonicParsing="false" onAction="#execTransaction" onMouseEntered="#syncToCoins" prefHeight="24.0" prefWidth="163.0" text="Execute transaction" AnchorPane.leftAnchor="121.0">
+      <Button fx:id="btnTransact" layoutX="121.0" layoutY="237.0" mnemonicParsing="false" onAction="#execTransaction" onMouseEntered="#sync" prefHeight="24.0" prefWidth="163.0" text="Execute transaction" AnchorPane.leftAnchor="121.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>

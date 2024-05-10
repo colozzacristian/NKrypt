@@ -29,7 +29,7 @@ public class CryptoList {
         cryptos.add(new Crypto("doge", 0.0, 0.0));
         cryptos.add(new Crypto("shib", 0.0, 0.0));
         cryptos.add(new Crypto("pepe", 0.0, 0.0));
-        balance=50.0;
+        balance=0.0;
 
     }
 

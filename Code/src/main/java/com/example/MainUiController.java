@@ -117,6 +117,8 @@ public class MainUiController {
         labelEUR.setVisible(true);
         labelCrypto.setVisible(false);
         TableviewCrypto.setVisible(false);
+        btnMaxCoin.setVisible(false);
+        btnMaxEur.setVisible(false);
         labelAction.setText("Add money ot balance");
         transactionType=1;
         System.out.println("tt: "+transactionType);
@@ -251,6 +253,20 @@ public class MainUiController {
     }
 
     @FXML
+    private void sync(){
+        switch (transactionType) {
+            case 2:
+                syncToCoins();
+                break;
+            case 3:
+                syncToEur();
+                break;
+            default:
+                break;
+        }
+    }
+
+    @FXML
     public void execTransaction(){
         String eur=txtEuros.getText();
         String crypt=txtCoins.getText();
@@ -306,7 +322,6 @@ public class MainUiController {
         columnPrice.setCellValueFactory(cellData -> cellData.getValue().getPriceProperty());
         columnQuantity.setCellValueFactory(cellData -> cellData.getValue().getQuantityProperty());
         columnTotalValue.setCellValueFactory(cellData -> cellData.getValue().getAssetValue());
-        cryptolist.getCryptoList().get(0).setQuantity(0.02);
     }
 
     public void refreshTable(){
