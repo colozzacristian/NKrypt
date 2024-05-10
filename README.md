@@ -12,7 +12,7 @@ After starting the application you'll be greated by a Welcome screen, prompting 
 This idea was inspired from [KeePassXC](https://keepassxc.org/); indeed all the "save files" are encrypted!
 
 ## Create a new Login
-[![GIF](imagine0003.gif])](imagine0003.gif])]
+[![GIF](https://raw.githubusercontent.com/colozzacristian/NCrypt/main/image00003.gif)
 To create a new login, you need to choose:
 - ***an unique nickname***
 - ***a safe password***
