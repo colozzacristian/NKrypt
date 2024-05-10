@@ -1,21 +1,34 @@
 package com.example;
 
+import java.io.Serializable;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Crypto {
+public class Crypto implements Serializable{
 
-    private Double price;
-    private Double quantity;
-    private StringProperty nameProperty;
-    private StringProperty priceProperty;
-    private StringProperty quantityProperty;
 
-    public Crypto(String name, Double price, Double quantity) {
+    private String name;
+    private double price;
+    private double quantity;
+    private transient StringProperty nameProperty;
+    private transient StringProperty priceProperty;
+    private transient StringProperty quantityProperty;
+
+    public Crypto(String name, double price, double quantity) {
+        this.name=name;
         this.setPrice(price);
         this.quantity = quantity;
         this.nameProperty = new SimpleStringProperty(name);
         this.quantityProperty = new SimpleStringProperty(quantity+"");
+    }
+
+    public Crypto(Crypto c) {
+        this.name=c.getName();
+        this.setPrice(c.getPrice());
+        this.quantity = c.getQuantity();
+        this.nameProperty = new SimpleStringProperty(c.getName());
+        this.quantityProperty = new SimpleStringProperty(c.getQuantity()+"");
     }
 
     public StringProperty getNameProperty() {
@@ -23,7 +36,7 @@ public class Crypto {
     }
 
     public String getName() {
-        return nameProperty.get();
+        return this.name;
     }
 
     public StringProperty getPriceProperty() {
@@ -33,6 +46,7 @@ public class Crypto {
     public StringProperty getQuantityProperty() {
         return quantityProperty;
     }
+
 
     public Double getPrice() {
         return price;
@@ -45,6 +59,11 @@ public class Crypto {
 
     public Double getQuantity() {
         return quantity;
+    }
+    
+
+    public void setQuantityProperty(StringProperty quantityProperty) {
+        this.quantityProperty = quantityProperty;
     }
 
     public void setQuantity(Double quantity) {

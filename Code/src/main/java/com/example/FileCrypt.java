@@ -4,13 +4,19 @@
  */
 package com.example;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Scanner;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -40,157 +46,202 @@ public class FileCrypt {
     private static final String SYM_ALGORITHM 	= "AES";
     private static final Integer SYM_KEY_SIZE 	= 256;
     
-    private SecretKey key;
+    //private SecretKey key;
+    private String chiave;
     private String filePath;
     private File file;
-    private byte [] byte_file;
-    private File copy_file;
-    private String verifica = "Encryption";
+    //private byte [] byte_file;
+    //private File copy_file;
 
     public FileCrypt(String chiave, String path_file) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
         this.filePath=path_file;
         this.file = new File (this.filePath);
         if (this.file.createNewFile()) {
             System.out.println("Succeded in creating the new file: " + filePath + ".");
-            FileWriter fileWriter = new FileWriter(this.filePath, true); // true per appendere al file
-            BufferedWriter writer = new BufferedWriter(fileWriter);
-            writer.write(this.verifica);
-            writer.newLine();
-            writer.close();
         }
         else {
             System.out.println("File " + filePath + " alredy exist!");
         }
-        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-        KeySpec spec = new PBEKeySpec(chiave.toCharArray(), "crypto".getBytes(), 65536, 256);
-        //KeyGenerator kg = KeyGenerator.getInstance("AES");
-        SecureRandom secureRandom = new SecureRandom();
-        secureRandom.setSeed(chiave.getBytes());
-        //kg.init(128, secureRandom);
-        //this.key = kg.generateKey();
-        this.key = new SecretKeySpec(factory.generateSecret(spec).getEncoded(), "AES");
-        //key=getKeyFromPassword(chiave, "crypt");
-        aggiorna_byte_file();
-        //key = new SecretKeySpec(chiave.getBytes(), SYM_ALGORITHM);
+        this.chiave=chiave;
     }
-    
-    public static SecretKey getKeyFromPassword(String password, String salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-        KeySpec spec = new PBEKeySpec(password.toCharArray(), salt.getBytes(), 65536, 256);
-        SecretKey secret = new SecretKeySpec(factory.generateSecret(spec).getEncoded(), "AES");
-        return secret;
-}
-    
-    public void aggiorna_byte_file() throws IOException {
-        //...
-        //...
-        byte_file=Files.readAllBytes(Paths.get(this.filePath));
-    }
-    
-    public void encryption() throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, IOException {
-        byte [] iv = inizializza_byte();
-        System.out.println("hey 1");
-        Cipher cipher = Cipher.getInstance( "AES/CBC/PKCS5Padding" );
-        cipher.init( Cipher.ENCRYPT_MODE, this.key);
-        //this.key=new SecretKeySpec("0000000".getBytes(), SYM_ALGORITHM); //cambio la chiave per non rendere più disponibile la vecchia chiave (volendo)
-        byte [] new_byte = cipher.doFinal( byte_file );
-        Path path = Paths.get(this.filePath);
-        Files.write(path, new_byte);
 
-        System.out.println("hey 2");
-        /*
-        FileWriter fileWriter = new FileWriter(this.filePath, true); // true per appendere al file
-        BufferedWriter writer = new BufferedWriter(fileWriter);
-        writer.write(this.verifica);
-        writer.newLine();
-        writer.close();
-        */
-    }
-    
-    public byte [] inizializza_byte() {
-        SecureRandom random = new SecureRandom();
-        byte [] iv = new byte [ SYM_KEY_SIZE / 8 ];
-        random.nextBytes( iv );
-        return iv;
-    }
-    
-    
-    public boolean decryption(String chiave) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, IOException, InvalidKeySpecException {
-        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-        KeySpec spec = new PBEKeySpec(chiave.toCharArray(), "crypto".getBytes(), 65536, 256);
-        try {
-            this.key = new SecretKeySpec(factory.generateSecret(spec).getEncoded(), "AES");
-        } catch (InvalidKeySpecException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        aggiorna_byte_file();
-        //this.copy_file = new File(this.file, "copy_"+this.filePath); //copia nel caso la decriptazione avvenga con la chiave errata
-        Scanner reader;
-        ////byte [] iv = inizializza_byte();
-        ////Cipher cipher = Cipher.getInstance( "AES/ECB/PKCS5Padding" );
-        /*
-        try {
-            key=getKeyFromPassword(chiave, "crypt");
-        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        */
-        File newfile = new File ("new2"+this.filePath);
-        newfile.createNewFile();
-        FileInputStream input = new FileInputStream(file);
-        FileOutputStream output = new FileOutputStream(newfile);
 
-        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-        cipher.init(Cipher.DECRYPT_MODE, this.key);
+    public void pero() throws IOException {
+        String key = "your_key_here"; // Chiave per l'XOR
+        File inputFile = new File("peppopippo.txt"); // File di input
+        File encryptedFile = new File("pippofinalpleasepippo.txt"); // File cifrato
+        encryptedFile.createNewFile();
+
+        try {
+            encryptFile(inputFile, encryptedFile, key);
+            System.out.println("File cifrato con successo.");
+        } catch (IOException e) {
+            System.out.println("Si è verificato un errore durante la cifratura del file: " + e.getMessage());
+        }
+
+        if (inputFile.exists()) {
+            // Prova a cancellare il file
+            if (inputFile.delete()) {
+                System.out.println("Il file è stato cancellato con successo.");
+            } else {
+                System.out.println("Impossibile cancellare il file.");
+            }
+        } else {
+            System.out.println("Il file non esiste.");
+        }
+    }
+
+    // Metodo per cifrare il file utilizzando l'XOR con la chiave
+    public static void encryptFile(File inputFile, File outputFile, String key) throws IOException {
+        FileInputStream inputStream = new FileInputStream(inputFile);
+        FileOutputStream outputStream = new FileOutputStream(outputFile);
 
         byte[] buffer = new byte[1024];
+        byte[] keyBytes = key.getBytes();
+        int keyIndex = 0;
 
-        int count = input.read(buffer);
-
-        while (count >= 0) {
-            output.write(cipher.update(buffer, 0, count)); // HERE I WAS DOING doFinal() method
-    
-            //AND HERE WAS THE BadPaddingExceotion -- the first pass in the while structure
-    
-            count = input.read(buffer);
+        int bytesRead;
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            for (int i = 0; i < bytesRead; i++) {
+                buffer[i] ^= keyBytes[keyIndex]; // Esegui l'XOR tra il byte del file e il byte corrispondente della chiave
+                keyIndex = (keyIndex + 1) % keyBytes.length; // Passa al successivo byte della chiave
+            }
+            outputStream.write(buffer, 0, bytesRead);
         }
-        output.write(cipher.doFinal()); // AND I DID NOT HAD THIS LINE BEFORE
-        output.flush();
 
-        System.out.println("yo1");
-        //
-        //Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-        //cipher.init(Cipher.DECRYPT_MODE, this.key);
-        //
-        /*
-        byte [] new_byte;
-        //key = new SecretKeySpec(chiave.getBytes(), SYM_ALGORITHM);
+        inputStream.close();
+        outputStream.close();
+    }
+
+    
+    public void update(CryptoList cryptolist) throws IOException {
+        File decryptedfile = new File("tmp.txt"); // I create temporary file (decryption of the existing file) to read data
+        PrintWriter pw = new PrintWriter(this.filePath);
+        pw.close();
+        FileOutputStream fos = new FileOutputStream(this.filePath);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+        for (Crypto crypto : cryptolist.getCryptoList()) {
+            oos.writeObject(crypto);
+        }
+
+        if (decryptedfile.createNewFile()) {
+            System.out.println("Succeded in creating the tmp file.");
+        } else {
+            System.out.println("tmp file alredy exists.");
+        }
+        
+
+        //file XORING
+
         try {
-            new_byte = cipher.doFinal( byte_file );
-        } catch (BadPaddingException e) {
-            System.out.println("BadPaddingException exception.");
-            return false;
+            encryptFile(this.file, decryptedfile, this.chiave);
+            System.out.println("Succeded in decrypting the file");
+        } catch (IOException e) {
+            System.out.println("An error occurred during file encryption." + e.getMessage());
         }
-        Path path = Paths.get(this.filePath);
-        Files.write(path, new_byte);
-        */
 
-        reader = new Scanner(newfile);
-        String str_verifica = "";
-        if (reader.hasNextLine()) {
-            str_verifica = reader.nextLine();
+        this.file.delete();
+
+        this.file = new File(this.filePath);
+        if (this.file.createNewFile()) {
+            System.out.println("Succeded in creating the new file: " + filePath + ".");
         }
         else {
-            System.out.println("Something went wrong.");
+            System.out.println("File " + filePath + " alredy exist!");
         }
-        System.out.println(str_verifica);
-        reader.close();
-        if (this.verifica.equals(str_verifica)) return true; //ritorno true se la chiave fornita è corretta e dunque è stata eseguita una decriptazione corretta, in caso contrario ritorno false e si ripeterà il login
 
-        //this.file = new File (this.copy_file, this.filePath);
-        //this.file.createNewFile();
-        return false;
+        try {
+            copyFile(decryptedfile, this.file);
+            System.out.println("Il file è stato copiato con successo nel nuovo percorso.");
+        } catch (IOException e) {
+            System.out.println("Si è verificato un errore durante la copia del file: " + e.getMessage());
+        }
+        
+
+    }
+
+    public static void copyFile(File sourceFile, File destFile) throws IOException {
+        FileInputStream inputStream = new FileInputStream(sourceFile);
+        FileOutputStream outputStream = new FileOutputStream(destFile);
+        
+        byte[] buffer = new byte[1024];
+        int length;
+        
+        while ((length = inputStream.read(buffer)) > 0) {
+            outputStream.write(buffer, 0, length);
+        }
+        
+        inputStream.close();
+        outputStream.close();
+    }
+
+    public Boolean readData(CryptoList cryptolist) throws IOException, ClassNotFoundException {
+        
+        File decryptedfile = new File("tmp.txt"); // I create temporary file (decryption of the existing file) to read data
+        if (decryptedfile.createNewFile()) {
+            System.out.println("Succeded in creating the tmp file.");
+        } else {
+            System.out.println("tmp file alredy exists.");
+        }
+        
+        //file XORING
+
+        try {
+            encryptFile(this.file, decryptedfile, this.chiave);
+            System.out.println("Succeded in decrypting the file");
+        } catch (IOException e) {
+            System.out.println("An error occurred during file encryption." + e.getMessage());
+        }
+        
+        FileInputStream fis = new FileInputStream("tmp.txt");
+        ObjectInputStream ois;
+        try {ois = new ObjectInputStream(fis);}
+        catch (IOException e) {
+            System.out.println("pippo");
+            decryptedfile.delete();
+            return false;
+        }
+        catch (Exception e) {
+            decryptedfile.delete();
+            return false;
+        }
+
+        while (true) {
+                try {
+                    System.out.println("yoin");
+                    cryptolist.getCryptoList().add(new Crypto((Crypto) ois.readObject()));
+                    //System.out.println("yoin");
+                }
+                catch (EOFException e) {
+                    // All file readed
+                    System.out.println("pera");
+                    break;
+                }
+                catch (Exception ex) {
+                    System.out.println("entra?");
+                    String currentLine;
+                    String lastLine="";
+                    try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+                        while ((currentLine = reader.readLine()) != null) {
+                            lastLine = currentLine;
+                        }
+                    }
+                    catch (IOException e) {
+                        // Gestione dell'eccezione IOException
+                        e.printStackTrace();
+                    }
+                    decryptedfile.delete();
+                    return true; //decryption is OK
+                }
+            }
+        decryptedfile.delete();
+        //return cryptolist;
+        System.out.println("error (reading the verify String).");
+        return true;
+    }
+
+    public String getChiave() {
+        return this.chiave;
     }
 }

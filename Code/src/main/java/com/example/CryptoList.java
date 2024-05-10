@@ -32,6 +32,10 @@ public class CryptoList {
         balance=50.0;
 
     }
+
+    public CryptoList(boolean p) {
+        System.out.println("new Cryptolist");
+    }
     
      public ObservableList<Crypto> getCryptoList() {
          return cryptos;

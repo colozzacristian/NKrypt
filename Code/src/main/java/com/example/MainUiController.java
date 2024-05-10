@@ -306,6 +306,7 @@ public class MainUiController {
         columnPrice.setCellValueFactory(cellData -> cellData.getValue().getPriceProperty());
         columnQuantity.setCellValueFactory(cellData -> cellData.getValue().getQuantityProperty());
         columnTotalValue.setCellValueFactory(cellData -> cellData.getValue().getAssetValue());
+        cryptolist.getCryptoList().get(0).setQuantity(0.02);
     }
 
     public void refreshTable(){

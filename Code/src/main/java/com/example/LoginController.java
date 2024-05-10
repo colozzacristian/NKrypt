@@ -47,6 +47,8 @@ public class LoginController {
 
     private FileCrypt filecrypt;
     private Boolean controllo;
+
+    CryptoList cl;
     
 
     public FileCrypt getFilecrypt() {
@@ -105,7 +107,8 @@ public class LoginController {
         } catch (IOException e) {
           System.out.println("An error occurred.");
           e.printStackTrace();
-      }}
+      }
+    }
 
   @FXML
   public void loginFromFile(){
@@ -180,7 +183,7 @@ public class LoginController {
   }
 
   @FXML
-  public void enter() throws IOException, NoSuchAlgorithmException, InvalidKeySpecException{
+  public void enter() throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, ClassNotFoundException{
 
     if(passwdFile.getText().equals("")){
       labelProblem3.setVisible(true);
@@ -188,6 +191,8 @@ public class LoginController {
       labelProblem2.setVisible(false);
       return;
     }
+
+    CryptoList cl = new CryptoList(true);
 
     if(this.n) {
 
@@ -210,17 +215,17 @@ public class LoginController {
       }
       //file nuovo
       this.filecrypt = new FileCrypt(passwdFile.getText(), textName.getText()+".ncrypt");
-      app.menu_crypto();
+      app.menu_crypto(cl);
     }
     else{
       //entro con file gia creato
       this.controllo = false;
       this.filecrypt = new FileCrypt(passwdFile.getText(), choiceFile.getValue().toString());
       try {
-        if (filecrypt.decryption(passwdFile.getText())) app.menu_crypto();
+        if (this.filecrypt.readData(cl)) app.menu_crypto(cl);
         else wrong_passwd();
       }
-      catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException | InvalidAlgorithmParameterException | IOException e) {
+      catch (Exception e) {
         e.printStackTrace();
       }
     }
@@ -231,7 +236,7 @@ public class LoginController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Login");
         alert.setContentText("Password errata");
-        Optional<ButtonType> res = alert.showAndWait();
+        alert.showAndWait();
   }
 
 

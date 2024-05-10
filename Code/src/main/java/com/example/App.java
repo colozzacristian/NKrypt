@@ -103,7 +103,8 @@ public class App extends Application {
                 else{
                     try {
                         this.fileCrypt = loginController.getFile();
-                        fileCrypt.encryption(); //chiamata della criptazione del file
+                        //fileCrypt.encryption(); //chiamata della criptazione del file
+                        fileCrypt.update(mainController.getCryptolist());
                         System.out.println("pippo");
                         caller.interrupt();
                         cc.interrupt();
@@ -117,7 +118,7 @@ public class App extends Application {
         }
     }
 
-    public void menu_crypto() {
+    public void menu_crypto(CryptoList cryptoList) throws ClassNotFoundException {
         
         try {
             
@@ -134,12 +135,19 @@ public class App extends Application {
             
 
             mainController=loader.getController();
+            this.fileCrypt = loginController.getFile();
+
+
+
             if(loginController.isN()){
+                //login new file
                 cl=new CryptoList();
             }else{
-                //leggi da file
+                //login with file
+                cl=cryptoList;
             }
             System.out.println("Starting the thread caller");
+
             caller.start();
             caller.setMain(mainController);
             caller.setCryptoList(cl);
