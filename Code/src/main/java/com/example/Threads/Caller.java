@@ -7,9 +7,9 @@ import java.net.ConnectException;
 import java.net.URI;
 import java.net.http.HttpClient;
 
-import com.example.CryptoList;
 import com.example.MainUiController;
 import com.example.StringParserCC;
+import com.example.Crypto.CryptoList;
 
 public class Caller extends Thread{
     String baseUrl="https://min-api.cryptocompare.com/data/pricemulti?fsyms=";
@@ -55,6 +55,7 @@ public class Caller extends Thread{
         this.cryptoList=list;
     }
 
+    //it builds the url using the cryptocurrencies id
     private String buildURL(){
         String url=baseUrl;
         for (int i = 0; i < cryptoList.getCryptoList().size(); i++) {

@@ -89,3 +89,27 @@ We were also limited to what, our API provider and other free tools avaiable, le
 We found some major limits in, expecially, the API calls.
 
 **Thanks for reading and enjoy the App.**
+
+# Techincal things
+
+## Sitography
+- [Icons](https://fontawesome.com/)
+- [Main logo](https://looka.com)
+- [Api](https://www.cryptocompare.com/)
+## Files meanings
+
+### Code/src/main/java
+- Caller: is the thread responsible of doing the api calls.
+- CallerCaller: is a thread that serves uniquely as a timer for caller.
+- App: is the entrypoint, where all important initializations are done.
+- Crypto: is the class describing cryptocurrencies
+- CryptoList: is the class containing the list of cryptoes, the balance and the semaphore used to activate Caller.
+- FileCrypt: is where al the magic of the files happens. Encryption, decription and despair. 
+- StringParserCC: it's an utility tailor made to parse strings.
+- LoginController: as the name implies it's the controller for LoginFXML.
+- MainUiControlle:as the name implies it's the controller for MainUiFXML.
+### Code/resources/com/example
+- Style/style.css: is our css file.
+- Images: it's where the images are.
+- Login.fxml: it's the fxml file for the login menu.
+- mainUI.fxml: it's the fxml file for the login menu.

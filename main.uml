@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Diagram>
   <ID>JAVA</ID>
-  <OriginalElement>/home/cristian/Coding/Projects/NCrypt/Code/src/main</OriginalElement>
+  <OriginalElement>/home/cristian/Coding/Projects/NCrypt/Code/src</OriginalElement>
   <nodes>
-    <node x="744.5" y="322.5">com.example.FileCrypt</node>
-    <node x="271.98046875" y="1206.5820312499995">com.example.Threads.CallerCaller</node>
-    <node x="744.5" y="716.8984375">com.example.Crypto</node>
-    <node x="-499.98046875" y="298.5">com.example.MainUiController</node>
-    <node x="-93.0" y="1071.1484375">com.example.StringParserCC</node>
-    <node x="1070.96875" y="353.03515625000045">com.example.App</node>
-    <node x="-89.5" y="706.5">com.example.CryptoList</node>
-    <node x="295.5" y="298.5">com.example.LoginController</node>
-    <node x="-89.5" y="298.5">com.example.Threads.Caller</node>
+    <node x="-835.8437843784379" y="364.8905390539052">com.example.LoginController</node>
+    <node x="-165.1122662266227" y="277.1475247524753">com.example.App</node>
+    <node x="-220.25324532453237" y="756.73300330033">com.example.Crypto.Balance</node>
+    <node x="-165.1122662266227" y="-18.324422442244213">com.example.FileCrypt</node>
+    <node x="-1228.7453245324532" y="4.890539053905286">com.example.MainUiController</node>
+    <node x="-500.2245324532454" y="925.7715071507153">com.example.Threads.CallerCaller</node>
+    <node x="-835.8437843784379" y="-18.324422442244213">com.example.Crypto.CryptoList</node>
+    <node x="-503.7245324532454" y="519.0370737073707">com.example.Threads.Caller</node>
+    <node x="-503.7245324532454" y="-18.324422442244213">com.example.Crypto.Crypto</node>
+    <node x="-203.32508250825072" y="1011.6243124312431">com.example.StringParserCC</node>
   </nodes>
   <notes />
   <edges />
-  <settings layout="Hierarchic Compact" zoom="0.6400000000000001" showDependencies="false" x="518.9999999999998" y="843.7187499999999" />
-  <SelectedNodes>
-    <node>com.example.App</node>
-  </SelectedNodes>
+  <settings layout="Hierarchic Compact" zoom="0.7122931293881645" showDependencies="false" x="-443.10552255225514" y="536.6000000000001" />
+  <SelectedNodes />
   <Categories>
     <Category>Constructors</Category>
     <Category>Fields</Category>

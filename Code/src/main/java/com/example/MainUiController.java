@@ -9,6 +9,8 @@ package com.example;
 import java.math.BigDecimal;
 import java.util.Optional;
 
+import com.example.Crypto.Crypto;
+import com.example.Crypto.CryptoList;
 import com.example.Threads.Caller;
 
 import javafx.collections.FXCollections;
@@ -322,7 +324,8 @@ public class MainUiController {
         columnPrice.setCellValueFactory(cellData -> cellData.getValue().getPriceProperty());
         columnQuantity.setCellValueFactory(cellData -> cellData.getValue().getQuantityProperty());
         columnTotalValue.setCellValueFactory(cellData -> cellData.getValue().getAssetValue());
-        labelMoney.setText("€"+getCryptolist().getBalance());
+        labelMoney.setText("€"+cryptolist.getBalance());
+        
     }
 
     public void refreshTable(){
