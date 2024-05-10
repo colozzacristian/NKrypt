@@ -101,11 +101,13 @@ public class MainUiController {
         btnBuy.setDisable(true);
         btnSell.setDisable(true);
         btnMaxCoin.setVisible(false);
+        System.out.println("MainUi initialited\n----------------------------------------------------------------------------\nnote that if your connection is slow you will encounter quite some problems\n----------------------------------------------------------------------------");
     }
 
 
     @FXML
     public void goBalance(){
+        System.out.println("going to balance menu");
         txtCoins.setVisible(false);
         txtEuros.setVisible(true);
         btnBack.setVisible(true);
@@ -117,6 +119,7 @@ public class MainUiController {
         TableviewCrypto.setVisible(false);
         labelAction.setText("Add money ot balance");
         transactionType=1;
+        System.out.println("tt: "+transactionType);
         txtCoins.setText("");
         txtEuros.setText("");
         
@@ -124,6 +127,7 @@ public class MainUiController {
 
     @FXML
     public void goBuy(){
+        System.out.println("going to buy menu");
         btnMaxCoin.setVisible(false);
         txtCoins.setVisible(true);
         txtEuros.setVisible(true);
@@ -137,12 +141,14 @@ public class MainUiController {
         //mettere quale è il nome della crypto
         labelAction.setText("Buying "+selected.getName());
         transactionType=2;
+        System.out.println("tt: "+transactionType);
         txtCoins.setText("");
         txtEuros.setText("");
         
     }
     @FXML
     public void goSell(){
+        System.out.println("going to sell menu");
         txtCoins.setVisible(true);
         txtEuros.setVisible(true);
         btnBack.setVisible(true);
@@ -156,12 +162,14 @@ public class MainUiController {
         //mettere quale è il nome della crypto
         labelAction.setText("Selling "+selected.getName());
         transactionType=3;
+        System.out.println("tt: "+transactionType);
         txtCoins.setText("");
         txtEuros.setText("");
         
     }
     @FXML
     public void goBack(){
+        System.out.println("going back to table view");
         txtCoins.setVisible(false);
         txtEuros.setVisible(false);
         btnBack.setVisible(false);
@@ -179,6 +187,7 @@ public class MainUiController {
     }
     @FXML
     public void maxEur(){
+        System.out.println("Setting txtEuros to use all the money in the balance");
         txtEuros.setText(new BigDecimal(cryptolist.getBalance()).toPlainString());
         txtCoins.setText(
             new BigDecimal(
@@ -190,6 +199,7 @@ public class MainUiController {
 
     @FXML
     public void maxCoin(){
+        System.out.println("Setting txtCoins to use all the crypto of this type that the user owns");
         txtCoins.setText(new BigDecimal(selected.getQuantity()).toPlainString());
         txtEuros.setText(
             new BigDecimal(
@@ -203,11 +213,10 @@ public class MainUiController {
     private void syncToCoins(){
         txtEuros.setText(StringParserCC.toNum(txtEuros.getText()));
         if(txtEuros.getText()==null || txtEuros.getText()==""){
-            System.out.println("no string when syncing to Coins");
             return;
         }
         
-        System.out.println("tt: "+transactionType);
+        
         if(transactionType!=1){
             if(Double.parseDouble(txtEuros.getText()) > cryptolist.getBalance()){
                 txtEuros.setText(String.valueOf(cryptolist.getBalance()));
@@ -227,7 +236,6 @@ public class MainUiController {
     private void syncToEur(){
         txtCoins.setText(StringParserCC.toNum(txtCoins.getText()));
         if(txtCoins.getText()==null || txtCoins.getText()==""){
-            System.out.println("no string when syncinc to Eur");
             return;
         }
         if(transactionType!=1){
@@ -284,6 +292,7 @@ public class MainUiController {
 
     private void updateSelected(Crypto newValue){
         System.out.println("selected: "+newValue.toString());
+        //if the user is not connected we shall not allow nor buying nor selling
         if(isConnected){
             btnBuy.setDisable(false);
             btnSell.setDisable(false);

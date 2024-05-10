@@ -5,19 +5,21 @@ import java.net.URL;
 
 import com.example.CryptoList;
 
-//si lo so il nome non è il massimo ma mi faceva ridere
+//si lo so il nome non è il massimo ma lo trovavo simpatico
 public class CallerCaller extends Thread {
      
     CryptoList cryptoList;
     boolean isAlive=true;
-    //API KEY in URL - just append ? or &api_key={your_api_key} the the end of your request url
+
     @Override
     public void run() {
 
 
         try {
             while(isAlive){
+                System.out.println("starting 1 minut timer");
                 sleep(60000);
+                System.out.println("timer expired. Refreshing values");
                 cryptoList.getCall2Action().release();
                 
             }
@@ -25,7 +27,7 @@ public class CallerCaller extends Thread {
         } catch (Exception e) {
             isAlive=false;
         }
-        
+        System.out.println("CallerCaller has stopped running");
     
     }
 

@@ -8,8 +8,6 @@ public class StringParserCC {
         int var1=0;
         String aux="";
 
-        System.out.println("response being parsed: "+ response);
-
         if(response==null){
             System.out.println("response is null, probable cause: no connection");
             return prices;
@@ -41,7 +39,7 @@ public class StringParserCC {
 
 
     public static String toNum(String text){
-        System.out.println("Correcting input: "+text);
+        //System.out.println("Correcting input: "+text);
         String aux="";
         boolean start=false;
         boolean Doubleed=false;
@@ -61,7 +59,7 @@ public class StringParserCC {
        
 
     }
-    System.out.println("Corrected: "+aux);
+    //System.out.println("Corrected: "+aux);
     return aux;
 }
 
