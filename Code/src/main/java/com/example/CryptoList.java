@@ -30,6 +30,10 @@ public class CryptoList {
         cryptos.add(new Crypto("pepe", 0, 0));
 
     }
+
+    public CryptoList(boolean p) {
+        System.out.println("new Cryptolist");
+    }
     
      public ObservableList<Crypto> getCryptoList() {
          return cryptos;

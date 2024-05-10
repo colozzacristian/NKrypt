@@ -180,7 +180,7 @@ public class LoginController {
   }
 
   @FXML
-  public void enter() throws IOException, NoSuchAlgorithmException, InvalidKeySpecException{
+  public void enter() throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, ClassNotFoundException{
 
     if(passwdFile.getText().equals("")){
       labelProblem3.setVisible(true);
@@ -217,10 +217,10 @@ public class LoginController {
       this.controllo = false;
       this.filecrypt = new FileCrypt(passwdFile.getText(), choiceFile.getValue().toString());
       try {
-        if (filecrypt.decryption(passwdFile.getText())) app.menu_crypto();
+        if (filecrypt.getChiave().equals(passwdFile.getText())) app.menu_crypto();
         else wrong_passwd();
       }
-      catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException | InvalidAlgorithmParameterException | IOException e) {
+      catch (Exception e) {
         e.printStackTrace();
       }
     }

@@ -5,12 +5,16 @@
 package com.example;
 
 import java.io.BufferedWriter;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.util.Scanner;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -40,157 +44,56 @@ public class FileCrypt {
     private static final String SYM_ALGORITHM 	= "AES";
     private static final Integer SYM_KEY_SIZE 	= 256;
     
-    private SecretKey key;
+    //private SecretKey key;
+    private String chiave;
     private String filePath;
     private File file;
-    private byte [] byte_file;
-    private File copy_file;
-    private String verifica = "Encryption";
+    //private byte [] byte_file;
+    //private File copy_file;
+    //private String verifica = "Encryption";
 
     public FileCrypt(String chiave, String path_file) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
         this.filePath=path_file;
         this.file = new File (this.filePath);
         if (this.file.createNewFile()) {
             System.out.println("Succeded in creating the new file: " + filePath + ".");
-            FileWriter fileWriter = new FileWriter(this.filePath, true); // true per appendere al file
-            BufferedWriter writer = new BufferedWriter(fileWriter);
-            writer.write(this.verifica);
-            writer.newLine();
-            writer.close();
         }
         else {
             System.out.println("File " + filePath + " alredy exist!");
         }
-        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-        KeySpec spec = new PBEKeySpec(chiave.toCharArray(), "crypto".getBytes(), 65536, 256);
-        //KeyGenerator kg = KeyGenerator.getInstance("AES");
-        SecureRandom secureRandom = new SecureRandom();
-        secureRandom.setSeed(chiave.getBytes());
-        //kg.init(128, secureRandom);
-        //this.key = kg.generateKey();
-        this.key = new SecretKeySpec(factory.generateSecret(spec).getEncoded(), "AES");
-        //key=getKeyFromPassword(chiave, "crypt");
-        aggiorna_byte_file();
-        //key = new SecretKeySpec(chiave.getBytes(), SYM_ALGORITHM);
+        this.chiave=chiave;
     }
     
-    public static SecretKey getKeyFromPassword(String password, String salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-        KeySpec spec = new PBEKeySpec(password.toCharArray(), salt.getBytes(), 65536, 256);
-        SecretKey secret = new SecretKeySpec(factory.generateSecret(spec).getEncoded(), "AES");
-        return secret;
-}
-    
-    public void aggiorna_byte_file() throws IOException {
-        //...
-        //...
-        byte_file=Files.readAllBytes(Paths.get(this.filePath));
+    public void update(CryptoList cryptolist) throws IOException {
+        PrintWriter pw = new PrintWriter(this.filePath);
+        pw.close();
+        FileOutputStream fos = new FileOutputStream(this.filePath);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+        for (Crypto crypto : cryptolist.getCryptoList()) {
+            oos.writeObject(crypto);
+        }
     }
-    
-    public void encryption() throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, IOException {
-        byte [] iv = inizializza_byte();
-        System.out.println("hey 1");
-        Cipher cipher = Cipher.getInstance( "AES/CBC/PKCS5Padding" );
-        cipher.init( Cipher.ENCRYPT_MODE, this.key);
-        //this.key=new SecretKeySpec("0000000".getBytes(), SYM_ALGORITHM); //cambio la chiave per non rendere più disponibile la vecchia chiave (volendo)
-        byte [] new_byte = cipher.doFinal( byte_file );
-        Path path = Paths.get(this.filePath);
-        Files.write(path, new_byte);
 
-        System.out.println("hey 2");
-        /*
-        FileWriter fileWriter = new FileWriter(this.filePath, true); // true per appendere al file
-        BufferedWriter writer = new BufferedWriter(fileWriter);
-        writer.write(this.verifica);
-        writer.newLine();
-        writer.close();
-        */
+    public CryptoList readData() throws IOException, ClassNotFoundException {
+        FileInputStream fis = new FileInputStream(this.filePath);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        CryptoList cryptolist = new CryptoList(true);
+
+        while (true) {
+                try {
+                    cryptolist.getCryptoList().add(new Crypto((Crypto) ois.readObject()));
+                } catch (EOFException e) {
+                    // Fine del file raggiunta, esci dal ciclo
+                    break;
+                }
+            }
+        return cryptolist;
     }
-    
-    public byte [] inizializza_byte() {
-        SecureRandom random = new SecureRandom();
-        byte [] iv = new byte [ SYM_KEY_SIZE / 8 ];
-        random.nextBytes( iv );
-        return iv;
+
+    public String getChiave() {
+        return this.chiave;
     }
+
     
-    
-    public boolean decryption(String chiave) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException, IOException, InvalidKeySpecException {
-        SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-        KeySpec spec = new PBEKeySpec(chiave.toCharArray(), "crypto".getBytes(), 65536, 256);
-        try {
-            this.key = new SecretKeySpec(factory.generateSecret(spec).getEncoded(), "AES");
-        } catch (InvalidKeySpecException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        aggiorna_byte_file();
-        //this.copy_file = new File(this.file, "copy_"+this.filePath); //copia nel caso la decriptazione avvenga con la chiave errata
-        Scanner reader;
-        ////byte [] iv = inizializza_byte();
-        ////Cipher cipher = Cipher.getInstance( "AES/ECB/PKCS5Padding" );
-        /*
-        try {
-            key=getKeyFromPassword(chiave, "crypt");
-        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        */
-        File newfile = new File ("new2"+this.filePath);
-        newfile.createNewFile();
-        FileInputStream input = new FileInputStream(file);
-        FileOutputStream output = new FileOutputStream(newfile);
-
-        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-        cipher.init(Cipher.DECRYPT_MODE, this.key);
-
-        byte[] buffer = new byte[1024];
-
-        int count = input.read(buffer);
-
-        while (count >= 0) {
-            output.write(cipher.update(buffer, 0, count)); // HERE I WAS DOING doFinal() method
-    
-            //AND HERE WAS THE BadPaddingExceotion -- the first pass in the while structure
-    
-            count = input.read(buffer);
-        }
-        output.write(cipher.doFinal()); // AND I DID NOT HAD THIS LINE BEFORE
-        output.flush();
-
-        System.out.println("yo1");
-        //
-        //Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-        //cipher.init(Cipher.DECRYPT_MODE, this.key);
-        //
-        /*
-        byte [] new_byte;
-        //key = new SecretKeySpec(chiave.getBytes(), SYM_ALGORITHM);
-        try {
-            new_byte = cipher.doFinal( byte_file );
-        } catch (BadPaddingException e) {
-            System.out.println("BadPaddingException exception.");
-            return false;
-        }
-        Path path = Paths.get(this.filePath);
-        Files.write(path, new_byte);
-        */
-
-        reader = new Scanner(newfile);
-        String str_verifica = "";
-        if (reader.hasNextLine()) {
-            str_verifica = reader.nextLine();
-        }
-        else {
-            System.out.println("Something went wrong.");
-        }
-        System.out.println(str_verifica);
-        reader.close();
-        if (this.verifica.equals(str_verifica)) return true; //ritorno true se la chiave fornita è corretta e dunque è stata eseguita una decriptazione corretta, in caso contrario ritorno false e si ripeterà il login
-
-        //this.file = new File (this.copy_file, this.filePath);
-        //this.file.createNewFile();
-        return false;
-    }
 }
