@@ -7,6 +7,7 @@ import javafx.beans.property.StringProperty;
 
 public class Crypto implements Serializable{
 
+
     private String name;
     private double price;
     private double quantity;
@@ -46,16 +47,17 @@ public class Crypto implements Serializable{
         return quantityProperty;
     }
 
-    public double getPrice() {
-        return this.price;
+
+    public Double getPrice() {
+        return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
         this.priceProperty= new SimpleStringProperty(price+"");
     }
 
-    public double getQuantity() {
+    public Double getQuantity() {
         return quantity;
     }
     
@@ -64,9 +66,9 @@ public class Crypto implements Serializable{
         this.quantityProperty = quantityProperty;
     }
 
-    public void setQuantity(double quantity) {
+    public void setQuantity(Double quantity) {
         this.quantity = quantity;
-        this.quantityProperty = new SimpleStringProperty(quantity+"") ;
+        this.quantityProperty= new SimpleStringProperty(quantity+"");
     }
 
     public StringProperty getAssetValue(){

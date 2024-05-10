@@ -33,7 +33,7 @@
                   <Image url="@Images/NKript.png" />
                </image>
             </ImageView>
-            <Label fx:id="labelMoney" alignment="CENTER_RIGHT" ellipsisString="ToMuch" prefHeight="50.0" prefWidth="141.0" stylesheets="@Style/style.css" text="€ 50" textAlignment="RIGHT" textOverrun="WORD_ELLIPSIS" wrapText="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+            <Label fx:id="labelMoney" alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="196.0" stylesheets="@Style/style.css" text="€ 50" textAlignment="RIGHT" wrapText="true" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets right="10.0" />
                </GridPane.margin>
@@ -41,6 +41,7 @@
                   <Font name="System Bold" size="25.0" />
                </font>
             </Label>
+            <ImageView fitHeight="50.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </GridPane>
 
@@ -49,8 +50,8 @@
         <columns>
           <TableColumn fx:id="columnName" prefWidth="75.0" styleClass="TableColumn" text="Coin" />
           <TableColumn fx:id="columnPrice" prefWidth="78.0" styleClass="TableColumn" text="Price" />
-            <TableColumn fx:id="columnQuantity" prefWidth="72.0" styleClass="TableColumn" text="Owned" />
-            <TableColumn fx:id="columnTotalValue" maxWidth="1.7976931348623157E308" prefWidth="175.0" styleClass="TableColumn" text="Total owned value" />
+            <TableColumn fx:id="columnQuantity" maxWidth="1000.0" prefWidth="92.0" styleClass="TableColumn" text="Owned" />
+            <TableColumn fx:id="columnTotalValue" maxWidth="1.7976931348623157E308" prefWidth="155.0" styleClass="TableColumn" text="Total owned value" />
 
         </columns>
       </TableView>
@@ -86,19 +87,15 @@
             <Font name="Noto Sans Bengali Regular" size="23.0" />
          </font>
       </Label>
-      <TextField fx:id="txtCoins" layoutX="121.0" layoutY="208.0" prefHeight="24.0" prefWidth="163.0" AnchorPane.leftAnchor="121.0">
+      <TextField fx:id="txtCoins" layoutX="121.0" layoutY="208.0" onMouseEntered="#syncToCoins" onMouseExited="#syncToEur" prefHeight="24.0" prefWidth="163.0" AnchorPane.leftAnchor="121.0">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor></TextField>
-      <Button fx:id="btnTransact" layoutX="121.0" layoutY="237.0" mnemonicParsing="false" onAction="#execTransaction" prefHeight="24.0" prefWidth="163.0" text="Execute transaction" AnchorPane.leftAnchor="121.0">
+      <Button fx:id="btnTransact" layoutX="121.0" layoutY="237.0" mnemonicParsing="false" onAction="#execTransaction" onMouseEntered="#syncToCoins" prefHeight="24.0" prefWidth="163.0" text="Execute transaction" AnchorPane.leftAnchor="121.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="btnMaxCoin" layoutX="284.0" layoutY="208.0" mnemonicParsing="false" onAction="#maxCoins" text="Max" AnchorPane.leftAnchor="284.0">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor></Button>
-      <TextField fx:id="txtEuros" layoutX="120.0" layoutY="172.0" prefHeight="24.0" prefWidth="163.0" AnchorPane.leftAnchor="120.0">
+      <TextField fx:id="txtEuros" layoutX="120.0" layoutY="172.0" onMouseEntered="#syncToEur" onMouseExited="#syncToCoins" prefHeight="24.0" prefWidth="163.0" AnchorPane.leftAnchor="120.0">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor></TextField>
@@ -106,8 +103,12 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Label fx:id="labelStirato" layoutX="121.0" layoutY="135.0" prefHeight="34.0" prefWidth="179.0" styleClass="problem" text="You are stirato" textOverrun="LEADING_ELLIPSIS" wrapText="true" AnchorPane.bottomAnchor="181.0" AnchorPane.leftAnchor="121.0" AnchorPane.rightAnchor="304.0" AnchorPane.topAnchor="135.0" />
       <Label fx:id="labelEUR" layoutX="98.0" layoutY="167.0" prefHeight="34.0" prefWidth="16.0" text="€" textOverrun="LEADING_ELLIPSIS" wrapText="true" />
       <Label fx:id="labelCrypto" layoutX="67.0" layoutY="203.0" prefHeight="34.0" prefWidth="45.0" text="Crypto" textOverrun="LEADING_ELLIPSIS" wrapText="true" />
+      <Button fx:id="btnMaxCoin" layoutX="284.0" layoutY="208.0" mnemonicParsing="false" onAction="#maxCoin" text="Max" AnchorPane.leftAnchor="284.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>
