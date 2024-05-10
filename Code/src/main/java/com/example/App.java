@@ -112,7 +112,7 @@ public class App extends Application {
         }
     }
 
-    public void menu_crypto() throws ClassNotFoundException {
+    public void menu_crypto(CryptoList cryptoList) throws ClassNotFoundException {
         
         try {
             
@@ -130,11 +130,18 @@ public class App extends Application {
 
             mainController=loader.getController();
             this.fileCrypt = loginController.getFile();
+
+
+
             if(loginController.isN()){
+                //login new file
                 cl=new CryptoList();
             }else{
-                cl=fileCrypt.readData();
+                //login with file
+                cl=cryptoList;
             }
+
+
             caller.start();
             caller.setMain(mainController);
             caller.setCryptoList(cl);
