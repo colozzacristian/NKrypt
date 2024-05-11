@@ -54,7 +54,7 @@ public class Crypto implements Serializable{
 
     public void setPrice(Double price) {
         this.price = price;
-        this.priceProperty= new SimpleStringProperty(price+"");
+        this.priceProperty= new SimpleStringProperty("€" +price);
     }
 
     public Double getQuantity() {
@@ -72,7 +72,7 @@ public class Crypto implements Serializable{
     }
 
     public StringProperty getAssetValue(){
-        return new SimpleStringProperty(price*quantity+"");
+        return new SimpleStringProperty("€ "+price*quantity);
     }
 
     @Override

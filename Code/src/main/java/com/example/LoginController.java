@@ -63,8 +63,6 @@ public class LoginController {
 
     @FXML
     private void initialize(){
-        this.testFile();
-       
 
         choiceFile.setVisible(false);
         btnDelete.setVisible(false);
@@ -97,20 +95,6 @@ public class LoginController {
       btnNewLogin.setVisible(false);
       
       }
-
-    public void testFile(){
-        try {
-          File myObj = new File("filename.ncrypt");
-          if (myObj.createNewFile()) {
-            System.out.println("\nFile created: " + myObj.getName());
-          } else {
-            System.out.println("File already exists.");
-          }
-        } catch (IOException e) {
-          System.out.println("An error occurred.");
-          e.printStackTrace();
-      }
-    }
 
   @FXML
   public void loginFromFile(){
@@ -187,13 +171,14 @@ public class LoginController {
   @FXML
   public void enter() throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, ClassNotFoundException{
 
+
     if(passwdFile.getText().equals("")){
       labelProblem3.setVisible(true);
       labelProblem1.setVisible(false);
       labelProblem2.setVisible(false);
       return;
     }
-
+    
     CryptoList cl = new CryptoList(true);
 
     if(this.n) {
@@ -220,6 +205,14 @@ public class LoginController {
       app.menu_crypto(cl);
     }
     else{
+      if(choiceFile.getValue()==null){
+        labelProblem3.setVisible(false);
+        labelProblem1.setVisible(true);
+        labelProblem2.setVisible(false);
+        System.out.println("no file selected");
+        return;
+      }
+  
       //entro con file gia creato
       this.controllo = false;
       this.filecrypt = new FileCrypt(passwdFile.getText(), choiceFile.getValue().toString());

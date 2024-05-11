@@ -274,12 +274,20 @@ public class MainUiController {
         String crypt=txtCoins.getText();
         switch (transactionType) {
             case 1:
+            if (txtEuros.getText()=="") {
+                System.out.println("No string");
+                return;
+            }
                 System.out.println("adding balance");
                 cryptolist.setBalance(cryptolist.getBalance()+Double.parseDouble(txtEuros.getText()));
                 
                 
                 break;
             case 2:
+                if (txtEuros.getText()=="") {
+                    System.out.println("No string");
+                    return;
+                }
                 System.out.println("Buying");
                 syncToCoins();
                 cryptolist.getCall2Action().release();
@@ -288,6 +296,10 @@ public class MainUiController {
                 cryptolist.setBalance(cryptolist.getBalance()-Double.parseDouble(txtEuros.getText()));                
                 break;
             case 3:
+                if (txtCoins.getText()=="") {
+                    System.out.println("No string");
+                    return;
+                }
                 System.out.println("Selling");
                 syncToEur();
                 cryptolist.getCall2Action().release();
