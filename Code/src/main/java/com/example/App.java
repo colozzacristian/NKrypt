@@ -181,7 +181,7 @@ public class App extends Application {
 
     public static void main(String[] args) throws FileNotFoundException {
         
-        PrintStream logStream = new PrintStream(new File("logs.txt")){
+        PrintStream logStream = new PrintStream(new File("logs.log")){
             @Override
             public void println(String x) {
                 super.println( new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Calendar.getInstance().getTime()) + " : " + x);
