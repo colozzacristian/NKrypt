@@ -134,6 +134,8 @@ public class FileCrypt {
         } catch (IOException e) {
             System.out.println("Si è verificato un errore durante la copia del file: " + e.getMessage());
         }
+
+        decryptedfile.delete();
         
 
     }
