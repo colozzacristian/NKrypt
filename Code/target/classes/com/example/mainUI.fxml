@@ -87,7 +87,7 @@
             <Font name="Noto Sans Bengali Regular" size="23.0" />
          </font>
       </Label>
-      <TextField fx:id="txtCoins" layoutX="121.0" layoutY="208.0" onMouseEntered="#syncToCoins" onMouseExited="#syncToEur" prefHeight="24.0" prefWidth="163.0" AnchorPane.leftAnchor="121.0">
+      <TextField fx:id="txtCoins" layoutX="121.0" layoutY="208.0" onMouseClicked="#selectedCOINS" onMouseEntered="#syncToCoins" onMouseExited="#syncToEur" prefHeight="24.0" prefWidth="163.0" AnchorPane.leftAnchor="121.0">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor></TextField>
@@ -95,7 +95,7 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <TextField fx:id="txtEuros" layoutX="120.0" layoutY="172.0" onMouseEntered="#syncToEur" onMouseExited="#syncToCoins" prefHeight="24.0" prefWidth="163.0" AnchorPane.leftAnchor="120.0">
+      <TextField fx:id="txtEuros" layoutX="120.0" layoutY="172.0" onMouseClicked="#selectedEUR" onMouseEntered="#syncToEur" onMouseExited="#syncToCoins" prefHeight="24.0" prefWidth="163.0" AnchorPane.leftAnchor="120.0">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor></TextField>

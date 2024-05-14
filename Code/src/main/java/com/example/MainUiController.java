@@ -85,6 +85,7 @@ public class MainUiController {
     private boolean isConnected=false;
 
     private int transactionType=0;
+    private int selectedTXT=0;
 
     
     @FXML
@@ -123,6 +124,7 @@ public class MainUiController {
         btnMaxEur.setVisible(false);
         labelAction.setText("Add money ot balance");
         transactionType=1;
+        selectedTXT=0;
         System.out.println("tt: "+transactionType);
         txtCoins.setText("");
         txtEuros.setText("");
@@ -145,6 +147,7 @@ public class MainUiController {
         //mettere quale è il nome della crypto
         labelAction.setText("Buying "+selected.getName());
         transactionType=2;
+        selectedTXT=0;
         System.out.println("tt: "+transactionType);
         txtCoins.setText("");
         txtEuros.setText("");
@@ -166,6 +169,7 @@ public class MainUiController {
         //mettere quale è il nome della crypto
         labelAction.setText("Selling "+selected.getName());
         transactionType=3;
+        selectedTXT=0;
         System.out.println("tt: "+transactionType);
         txtCoins.setText("");
         txtEuros.setText("");
@@ -186,6 +190,7 @@ public class MainUiController {
         TableviewCrypto.setVisible(true);
         btnTransact.setDisable(false);
         transactionType=0;
+        selectedTXT=0;
         txtCoins.setText("");
         txtEuros.setText("");
     }
@@ -222,7 +227,7 @@ public class MainUiController {
         
         
         if(transactionType!=1){
-            if(Double.parseDouble(txtEuros.getText()) > cryptolist.getBalance()){
+            if(Double.parseDouble(txtEuros.getText()) > cryptolist.getBalance() && transactionType==2){
                 txtEuros.setText(String.valueOf(cryptolist.getBalance()));
             }
             txtEuros.setText(txtEuros.getText());
@@ -236,6 +241,7 @@ public class MainUiController {
         }
     }
 
+
     @FXML
     private void syncToEur(){
         txtCoins.setText(StringParserCC.toNum(txtCoins.getText()));
@@ -243,6 +249,9 @@ public class MainUiController {
             return;
         }
         if(transactionType!=1){
+            if(Double.parseDouble(txtEuros.getText()) > selected.getQuantity() && transactionType==3){
+                txtCoins.setText(String.valueOf(selected.getQuantity()));
+            }
             txtEuros.setText(
                 new BigDecimal(
                     Double.parseDouble(txtCoins.getText())*selected.getPrice()
@@ -269,7 +278,20 @@ public class MainUiController {
     }
 
     @FXML
+    private void selectedEUR(){
+        System.out.println("selected eur box");
+        selectedTXT=1;
+    }
+
+    @FXML
+    private void selectedCOINS(){
+        System.out.println("selected coins box");
+        selectedTXT=2;
+    }
+
+    @FXML
     public void execTransaction(){
+        sync();
         String eur=txtEuros.getText();
         String crypt=txtCoins.getText();
         switch (transactionType) {
