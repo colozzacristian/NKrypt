@@ -71,6 +71,7 @@ public class Caller extends Thread{
         
     }
 
+    //this makes the request to the api provider
     private String request(){
         HttpRequest request = HttpRequest.newBuilder()
         .uri(URI.create(buildURL()))

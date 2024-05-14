@@ -3,7 +3,11 @@ package com.example;
 import java.util.ArrayList;
 
 public abstract class StringParserCC {
+
     public static ArrayList<Double> retrieveValues(String response){
+        /*
+         * this function retrieves the prices from the json response of the http request
+         */
         ArrayList<Double> prices = new ArrayList<Double>();
         int var1=0;
         String aux="";
@@ -40,9 +44,15 @@ public abstract class StringParserCC {
 
     public static String toNum(String text){
         //System.out.println("Correcting input: "+text);
+
+         /*
+         * this function makes the strings suitable to be casted into doubles or float
+         */
         String aux="";
         boolean start=false;
         boolean Doubleed=false;
+
+        if(text==null){return "";}
 
         for (int index = 0; index < text.length(); index++) {
             char character= text.charAt(index);

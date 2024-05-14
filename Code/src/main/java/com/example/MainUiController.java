@@ -7,25 +7,17 @@ package com.example;
 
 
 import java.math.BigDecimal;
-import java.util.Optional;
 
 import com.example.Crypto.Crypto;
 import com.example.Crypto.CryptoList;
-import com.example.Threads.Caller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.*;
 
 
 
@@ -85,8 +77,7 @@ public class MainUiController {
     private boolean isConnected=false;
 
     private int transactionType=0;
-    private int selectedTXT=0;
-
+    
     
     @FXML
     private void initialize() {
@@ -110,6 +101,7 @@ public class MainUiController {
 
     @FXML
     public void goBalance(){
+        //goes to the add balance menu
         System.out.println("going to balance menu");
         txtCoins.setVisible(false);
         txtEuros.setVisible(true);
@@ -124,7 +116,7 @@ public class MainUiController {
         btnMaxEur.setVisible(false);
         labelAction.setText("Add money ot balance");
         transactionType=1;
-        selectedTXT=0;
+
         System.out.println("tt: "+transactionType);
         txtCoins.setText("");
         txtEuros.setText("");
@@ -133,6 +125,7 @@ public class MainUiController {
 
     @FXML
     public void goBuy(){
+        //goes to the buy menu
         System.out.println("going to buy menu");
         btnMaxCoin.setVisible(false);
         txtCoins.setVisible(true);
@@ -147,7 +140,6 @@ public class MainUiController {
         //mettere quale è il nome della crypto
         labelAction.setText("Buying "+selected.getName());
         transactionType=2;
-        selectedTXT=0;
         System.out.println("tt: "+transactionType);
         txtCoins.setText("");
         txtEuros.setText("");
@@ -155,6 +147,7 @@ public class MainUiController {
     }
     @FXML
     public void goSell(){
+        //goes to the sell menu
         System.out.println("going to sell menu");
         txtCoins.setVisible(true);
         txtEuros.setVisible(true);
@@ -169,7 +162,6 @@ public class MainUiController {
         //mettere quale è il nome della crypto
         labelAction.setText("Selling "+selected.getName());
         transactionType=3;
-        selectedTXT=0;
         System.out.println("tt: "+transactionType);
         txtCoins.setText("");
         txtEuros.setText("");
@@ -177,6 +169,7 @@ public class MainUiController {
     }
     @FXML
     public void goBack(){
+        //goes back to the tableview
         System.out.println("going back to table view");
         txtCoins.setVisible(false);
         txtEuros.setVisible(false);
@@ -190,12 +183,12 @@ public class MainUiController {
         TableviewCrypto.setVisible(true);
         btnTransact.setDisable(false);
         transactionType=0;
-        selectedTXT=0;
         txtCoins.setText("");
         txtEuros.setText("");
     }
     @FXML
     public void maxEur(){
+        //set the value of the euros to the total owned value
         System.out.println("Setting txtEuros to use all the money in the balance");
         txtEuros.setText(new BigDecimal(cryptolist.getBalance()).toPlainString());
         txtCoins.setText(
@@ -208,6 +201,7 @@ public class MainUiController {
 
     @FXML
     public void maxCoin(){
+        //set the value of the coins to the total owned value
         System.out.println("Setting txtCoins to use all the crypto of this type that the user owns");
         txtCoins.setText(new BigDecimal(selected.getQuantity()).toPlainString());
         txtEuros.setText(
@@ -220,6 +214,8 @@ public class MainUiController {
 
     @FXML
     private void syncToCoins(){
+        //syncs the value expressed in euros to the equal value in cryptos
+
         txtEuros.setText(StringParserCC.toNum(txtEuros.getText()));
         if(txtEuros.getText()==null || txtEuros.getText()==""){
             return;
@@ -244,6 +240,7 @@ public class MainUiController {
 
     @FXML
     private void syncToEur(){
+        //syncs the value expressed in cryptos to the equal value in euros
         txtCoins.setText(StringParserCC.toNum(txtCoins.getText()));
         if(txtCoins.getText()==null || txtCoins.getText()==""){
             return;
@@ -265,6 +262,7 @@ public class MainUiController {
 
     @FXML
     private void sync(){
+        //another control just to be sure
         switch (transactionType) {
             case 2:
                 syncToCoins();
@@ -280,20 +278,20 @@ public class MainUiController {
     @FXML
     private void selectedEUR(){
         System.out.println("selected eur box");
-        selectedTXT=1;
     }
 
     @FXML
     private void selectedCOINS(){
         System.out.println("selected coins box");
-        selectedTXT=2;
     }
 
     @FXML
     public void execTransaction(){
+        /*
+         * manages the various transactions, the switch is used to differenciate between them.
+         * it also makes more controls over the user input, and re updates the prices.
+         */
         sync();
-        String eur=txtEuros.getText();
-        String crypt=txtCoins.getText();
         switch (transactionType) {
             case 1:
             if (txtEuros.getText()=="") {
@@ -343,6 +341,9 @@ public class MainUiController {
 
 
     private void updateSelected(Crypto newValue){
+        /*
+         * manages the selection of the cryptos from the table
+         */
         System.out.println("selected: "+newValue.toString());
         //if the user is not connected we shall not allow nor buying nor selling
         if(isConnected){
@@ -363,10 +364,14 @@ public class MainUiController {
     }
 
     public void refreshTable(){
+        //refreshes the tableview
         TableviewCrypto.refresh();
     }
 
     public void connected(){
+         /*
+         * reenables the functions disabled in "noConnection" when the app notices that we are online
+         */
         isConnected=true;
         if(selected!=null){
             btnBuy.setDisable(false);
@@ -377,6 +382,9 @@ public class MainUiController {
     }
 
     public void noConnection(){
+        /*
+         * disables some function when tha app notices that there is no connection
+         */
         isConnected=false;
 
         btnBuy.setDisable(true);
@@ -397,28 +405,14 @@ public class MainUiController {
        
     }
 
+    @SuppressWarnings("exports")
     public CryptoList getCryptolist() {
         return cryptolist;
     }
-
+    @SuppressWarnings("exports")
     public void setCryptolist(CryptoList cryptolist) {
         this.cryptolist = cryptolist;
     }
 
-    
-
-    
-    
-    /*  private void mostraDettagliPersona(Persona p) {
-        if (p!=null){
-            txtCognome.setText(p.getCognome());
-            txtNome.setText(p.getNome());
-            txtTelefono.setText(p.getTelefono());
-           
-            
-        }
-        
-        //tabellaPersone.getSelectionModel().clearSelection();
-    }*/
     
 }

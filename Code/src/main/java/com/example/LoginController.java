@@ -2,22 +2,16 @@ package com.example;
 
 import java.io.File;
 import java.io.IOException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
+
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.util.Optional;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 
 import com.example.Crypto.CryptoList;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -48,7 +42,7 @@ public class LoginController {
 
 
     private FileCrypt filecrypt;
-    private Boolean controllo;
+
 
     CryptoList cl;
     
@@ -81,6 +75,7 @@ public class LoginController {
     }
 
     public void newLogin() {
+      //goes to the new login menu
 
       this.n=true;
 
@@ -98,6 +93,8 @@ public class LoginController {
 
   @FXML
   public void loginFromFile(){
+      //goes to the login from file menu
+
 
     int i=0;
 
@@ -147,6 +144,7 @@ public class LoginController {
 
   @FXML
   public void toMainMenu(){
+      //goes to the choice of the login type
 
     choiceFile.setVisible(false);
     btnDelete.setVisible(false);
@@ -170,7 +168,7 @@ public class LoginController {
 
   @FXML
   public void enter() throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, ClassNotFoundException{
-
+      //manages the login etither thru a new one or an old one
 
     if(passwdFile.getText().equals("")){
       labelProblem3.setVisible(true);
@@ -214,7 +212,6 @@ public class LoginController {
       }
   
       //entro con file gia creato
-      this.controllo = false;
       this.filecrypt = new FileCrypt(passwdFile.getText(), choiceFile.getValue().toString());
       try {
         if (this.filecrypt.readData(cl)) app.menu_crypto(cl);
