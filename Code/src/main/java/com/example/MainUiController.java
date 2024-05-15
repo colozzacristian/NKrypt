@@ -217,7 +217,7 @@ public class MainUiController {
         //syncs the value expressed in euros to the equal value in cryptos
 
         txtEuros.setText(StringParserCC.toNum(txtEuros.getText()));
-        if(txtEuros.getText()==null || txtEuros.getText()==""){
+        if(txtEuros.getText()==null || txtEuros.getText()=="" || txtCoins.getText().length()==0){
             return;
         }
         
@@ -242,7 +242,7 @@ public class MainUiController {
     private void syncToEur(){
         //syncs the value expressed in cryptos to the equal value in euros
         txtCoins.setText(StringParserCC.toNum(txtCoins.getText()));
-        if(txtCoins.getText()==null || txtCoins.getText()==""){
+        if(txtCoins.getText()==null || txtCoins.getText()=="" || txtCoins.getText().length()==0){
             return;
         }
         if(transactionType!=1){
