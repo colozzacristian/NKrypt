@@ -1,8 +1,5 @@
 package com.example.Threads;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 import com.example.Crypto.CryptoList;
 
 //si lo so il nome non è il massimo ma lo trovavo simpatico
