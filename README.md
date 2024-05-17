@@ -113,3 +113,10 @@ We found some major limits in, expecially, the API calls.
 - Images: it's where the images are.
 - Login.fxml: it's the fxml file for the login menu.
 - mainUI.fxml: it's the fxml file for the login menu.
+## Tools
+- VScode for coding
+- Obsidian + excalidraw for the UseCaseDiagram.png
+- Intellij Idea for the class diagram
+- [HackMD](https://hackmd.io/?nav=overview) to make this README
+- git(obviously)
+- Scene builder to make the GUI
