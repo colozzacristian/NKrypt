@@ -177,6 +177,7 @@ public class FileCrypt {
         ObjectInputStream ois;
         try {ois = new ObjectInputStream(fis);}
         catch (IOException e) {
+            //è stata inserita una password sbagliata, gli oggetti non vengono decriptati correttamente
             System.out.println("passwd error.");
             decryptedfile.delete();
             return false;

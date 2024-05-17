@@ -12,12 +12,14 @@ import javafx.collections.ObservableList;
 
 /**
  *
- * @author giuseppe.depietro
+ * @author Colozza Cristian,Nava Denis,Lorenzo Mornico
  */
 public class CryptoList {
 
+    // semaphore that activates "caller"
+    //we put it here beacause so whe need to pass just one thing between all objects
     private Semaphore call2Action = new Semaphore(1);
-    private ObservableList<Crypto> cryptos = FXCollections.observableArrayList(); 
+    private ObservableList<Crypto> cryptos = FXCollections.observableArrayList();
     private Balance balance_c; 
     private Double balance;
 
@@ -56,6 +58,7 @@ public class CryptoList {
     }
 
     public void setBalance(Double balance) {
+        //nulla di nuovo, stessa cosa per la quantità e il prezzo nel file "Crypto"
         this.balance = balance;
         this.balance_c.setBalance(balance);
     }

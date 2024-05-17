@@ -53,6 +53,8 @@ public class Crypto implements Serializable{
     }
 
     public void setPrice(Double price) {
+        //ci servono sia in versione stringa sia in versione string propriety per semplicità nelle altre parti del codice
+        //quindi aggiornando una anche l'altra si deve aggiornare
         this.price = price;
         this.priceProperty= new SimpleStringProperty("€" +price);
     }
@@ -67,6 +69,8 @@ public class Crypto implements Serializable{
     }
 
     public void setQuantity(Double quantity) {
+        //ci servono sia in versione stringa sia in versione string propriety per semplicità nelle altre parti del codice
+        //quindi aggiornando una anche l'altra si deve aggiornare
         this.quantity = quantity;
         this.quantityProperty= new SimpleStringProperty(quantity+"");
     }

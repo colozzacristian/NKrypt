@@ -2,11 +2,11 @@ package com.example.Threads;
 
 import com.example.Crypto.CryptoList;
 
-//si lo so il nome non è il massimo ma lo trovavo simpatico
+//yeah the name isn't the best but i found it funny
 public class CallerCaller extends Thread {
      
-    CryptoList cryptoList;
-    boolean isAlive=true;
+    private CryptoList cryptoList;
+    private boolean isAlive=true;
 
     @Override
     public void run() {
