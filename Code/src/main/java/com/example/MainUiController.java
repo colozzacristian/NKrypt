@@ -137,7 +137,6 @@ public class MainUiController {
         labelEUR.setVisible(true);
         labelCrypto.setVisible(true);
         TableviewCrypto.setVisible(false);
-        //mettere quale è il nome della crypto
         labelAction.setText("Buying "+selected.getName());
         transactionType=2;
         System.out.println("tt: "+transactionType);
@@ -217,10 +216,10 @@ public class MainUiController {
         //syncs the value expressed in euros to the equal value in cryptos
 
         txtEuros.setText(StringParserCC.toNum(txtEuros.getText()));
-        if(txtEuros.getText()==null || txtEuros.getText()=="" || txtCoins.getText().length()==0){
+        if(txtEuros.getText()==null || txtEuros.getText()=="" || txtEuros.getText().length()==0){
             return;
         }
-        
+
         
         if(transactionType!=1){
             if(Double.parseDouble(txtEuros.getText()) > cryptolist.getBalance() && transactionType==2){

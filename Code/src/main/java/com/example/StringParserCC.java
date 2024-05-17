@@ -11,7 +11,7 @@ public abstract class StringParserCC {
          * this function retrieves the prices from the json response of the http request
          */
         ArrayList<Double> prices = new ArrayList<Double>();
-        //this is the amount of ":" found since the last price
+        //\/ this is the amount of ":" found since the last price
         int var1=0;
         String aux="";
 
