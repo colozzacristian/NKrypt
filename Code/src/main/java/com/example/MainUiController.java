@@ -158,7 +158,6 @@ public class MainUiController {
         labelCrypto.setVisible(true);
         TableviewCrypto.setVisible(false);
         btnMaxEur.setVisible(false);
-        //mettere quale è il nome della crypto
         labelAction.setText("Selling "+selected.getName());
         transactionType=3;
         System.out.println("tt: "+transactionType);
@@ -189,6 +188,7 @@ public class MainUiController {
     public void maxEur(){
         //set the value of the euros to the total owned value
         System.out.println("Setting txtEuros to use all the money in the balance");
+        //the big decimal is used to prevent scientific notation, as it can cause problems
         txtEuros.setText(new BigDecimal(cryptolist.getBalance()).toPlainString());
         txtCoins.setText(
             new BigDecimal(
@@ -215,16 +215,20 @@ public class MainUiController {
     private void syncToCoins(){
         //syncs the value expressed in euros to the equal value in cryptos
 
+
+        //clean the input
         txtEuros.setText(StringParserCC.toNum(txtEuros.getText()));
+        //this expression might seem verbos, but some versions of java have problems with some of this expression
+        //due to a lack of ability to test the code on a lot of versions, i'll just keep this as it is
+        //to avoid compatibility problems
         if(txtEuros.getText()==null || txtEuros.getText()=="" || txtEuros.getText().length()==0){
             return;
         }
 
-        
+        //this is to avoid doing something useles if we are just adding to the balance
         if(transactionType!=1){
-            if(Double.parseDouble(txtEuros.getText()) > cryptolist.getBalance() && transactionType==2){
-                txtEuros.setText(String.valueOf(cryptolist.getBalance()));
-            }
+            
+           
             txtEuros.setText(txtEuros.getText());
             txtCoins.setText(
                 new BigDecimal(
@@ -232,6 +236,11 @@ public class MainUiController {
                     ).toPlainString()
                 
             );
+            //check if the input is over the account balance
+            if(Double.parseDouble(txtEuros.getText()) > cryptolist.getBalance() && transactionType==2){
+                txtEuros.setText(String.valueOf(cryptolist.getBalance()));
+            }else
+            //instead if we are selling we need to check the opposite  
             if(transactionType==3){syncToEur();}
         }
     }
@@ -240,19 +249,21 @@ public class MainUiController {
     @FXML
     private void syncToEur(){
         //syncs the value expressed in cryptos to the equal value in euros
+        //the explanation of this is pretty similar to the above function
         txtCoins.setText(StringParserCC.toNum(txtCoins.getText()));
         if(txtCoins.getText()==null || txtCoins.getText()=="" || txtCoins.getText().length()==0){
             return;
         }
         if(transactionType!=1){
-            if(Double.parseDouble(txtEuros.getText()) > selected.getQuantity() && transactionType==3){
-                txtCoins.setText(String.valueOf(selected.getQuantity()));
-            }
+           
             txtEuros.setText(
                 new BigDecimal(
                     Double.parseDouble(txtCoins.getText())*selected.getPrice()
                     ).toPlainString()
             );
+            if(Double.parseDouble(txtEuros.getText()) > selected.getQuantity() && transactionType==3){
+                txtCoins.setText(String.valueOf(selected.getQuantity()));
+            }else
             if(transactionType==2){
                 syncToCoins();
             }
@@ -261,7 +272,7 @@ public class MainUiController {
 
     @FXML
     private void sync(){
-        //another control just to be sure
+        //another control when hovering the transaction button, just to be sure
         switch (transactionType) {
             case 2:
                 syncToCoins();
@@ -309,6 +320,7 @@ public class MainUiController {
                 }
                 System.out.println("Buying");
                 syncToCoins();
+                //updates prices
                 cryptolist.getCall2Action().release();
                 selected.setQuantity(selected.getQuantity()+(Double.parseDouble(txtEuros.getText()) /selected.getPrice()));
                 System.out.println("new owned value: "+ selected.getQuantity());
