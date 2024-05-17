@@ -48,12 +48,9 @@ import com.example.Crypto.CryptoList;
  */
 public class FileCrypt {
     
-    //private SecretKey key;
     private String chiave;
     private String filePath;
     private File file;
-    //private byte [] byte_file;
-    //private File copy_file;
 
     public FileCrypt(String chiave, String path_file) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException {
         this.filePath=path_file;
@@ -67,7 +64,6 @@ public class FileCrypt {
         this.chiave=chiave;
     }
 
-    // Metodo per cifrare il file utilizzando l'XOR con la chiave
     public static void encryptFile(File inputFile, File outputFile, String key) throws IOException {
         FileInputStream inputStream = new FileInputStream(inputFile);
         FileOutputStream outputStream = new FileOutputStream(outputFile);
@@ -79,8 +75,8 @@ public class FileCrypt {
         int bytesRead;
         while ((bytesRead = inputStream.read(buffer)) != -1) {
             for (int i = 0; i < bytesRead; i++) {
-                buffer[i] ^= keyBytes[keyIndex]; // Esegui l'XOR tra il byte del file e il byte corrispondente della chiave
-                keyIndex = (keyIndex + 1) % keyBytes.length; // Passa al successivo byte della chiave
+                buffer[i] ^= keyBytes[keyIndex]; // Doing XOR between file in bytes and the corresponding byte of the key
+                keyIndex = (keyIndex + 1) % keyBytes.length; // Going to the next byte of the key
             }
             outputStream.write(buffer, 0, bytesRead);
         }
@@ -91,13 +87,13 @@ public class FileCrypt {
 
     
     public void update(CryptoList cryptolist) throws IOException {
-        File decryptedfile = new File("tmp.txt"); // I create temporary file (decryption of the existing file) to read data
+        File decryptedfile = new File("tmp.txt"); // Creating temporary file (decryption of the existing file) to read data
         PrintWriter pw = new PrintWriter(this.filePath);
-        pw.close();
+        pw.close();                                        // Deliting the content of the file
         FileOutputStream fos = new FileOutputStream(this.filePath);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-        for (Crypto crypto : cryptolist.getCryptoList()) {
+        for (Crypto crypto : cryptolist.getCryptoList()) { // Fill the tmp file with cryptos and current balance
             oos.writeObject(crypto);
         }
         oos.writeObject(cryptolist.getBalance_c());
@@ -109,7 +105,7 @@ public class FileCrypt {
         }
         
 
-        //file XORING
+        //file "XORING"
 
         try {
             encryptFile(this.file, decryptedfile, this.chiave);
@@ -120,6 +116,8 @@ public class FileCrypt {
 
         this.file.delete();
 
+
+        // copy the crypted content to the original named file
         this.file = new File(this.filePath);
         if (this.file.createNewFile()) {
             System.out.println("Succeded in creating the new file: " + filePath + ".");
@@ -130,9 +128,9 @@ public class FileCrypt {
 
         try {
             copyFile(decryptedfile, this.file);
-            System.out.println("Il file è stato copiato con successo nel nuovo percorso.");
+            System.out.println("The file has been successfull writed to the right path");
         } catch (IOException e) {
-            System.out.println("Si è verificato un errore durante la copia del file: " + e.getMessage());
+            System.out.println("An error has occured during the copy process" + e.getMessage());
         }
 
         decryptedfile.delete();
@@ -144,7 +142,7 @@ public class FileCrypt {
         FileInputStream inputStream = new FileInputStream(sourceFile);
         FileOutputStream outputStream = new FileOutputStream(destFile);
         
-        byte[] buffer = new byte[1024];
+        byte[] buffer = new byte[1024]; // copy the file content to another file 
         int length;
         
         while ((length = inputStream.read(buffer)) > 0) {
@@ -177,7 +175,7 @@ public class FileCrypt {
         ObjectInputStream ois;
         try {ois = new ObjectInputStream(fis);}
         catch (IOException e) {
-            //è stata inserita una password sbagliata, gli oggetti non vengono decriptati correttamente
+            //Wrong password had been entered
             System.out.println("passwd error.");
             decryptedfile.delete();
             return false;
@@ -190,9 +188,8 @@ public class FileCrypt {
         while (true) {
             try {
                 System.out.println("writing crypto...");
-                obj = ois.readObject();
-                cryptolist.getCryptoList().add(new Crypto((Crypto) obj));
-                //System.out.println("yoin");
+                obj = ois.readObject(); // Reading the object from the file
+                cryptolist.getCryptoList().add(new Crypto((Crypto) obj)); // If it isn't a crypto it will raise an exception (it might be the balance object)
             }
             catch (EOFException e) {
                 // All file readed
@@ -200,7 +197,7 @@ public class FileCrypt {
                 break;
             }
             catch (Exception ex) {
-                System.out.println("w");
+                System.out.println("writing balance");
                 cryptolist.setBalance_c(new Balance ((Balance) obj) );
                 System.out.println(cryptolist.getBalance_c().getBalance());
                 System.out.println(cryptolist.getBalance());
